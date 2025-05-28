@@ -5,7 +5,7 @@ from subsidy import process_subsidy_application
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, supports_credentials=True)
 
 # Load Zone Mapping Data
 df = pd.read_csv("Zone_database.csv")
