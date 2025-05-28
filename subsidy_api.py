@@ -2,6 +2,9 @@ from flask import Flask, request, jsonify
 import pandas as pd
 from report import generate_pdf
 from subsidy import process_subsidy_application
+import smtplib
+from email.message import EmailMessage
+import os
 
 app = Flask(__name__)
 
@@ -26,7 +29,6 @@ zone_data = {
 
 zone_df = pd.DataFrame(zone_data)
 
-# Subsidy Calculation 
 def calculate_subsidy(zone, enterprise_size, plant_machinery, building_civil_work,
                       term_loan_amount, land_cost, net_sgst_paid_cash_ledger):
     zone_info = zone_df[zone_df["Zone"] == zone].iloc[0]
@@ -55,8 +57,25 @@ def calculate_subsidy(zone, enterprise_size, plant_machinery, building_civil_wor
         "total_subsidy": round(total_subsidy, 2)
     }
 
-#API Endpoint 
-@app.route("/calculate-subsidy", methods=["POST","HEAD","GET"])
+def send_email_with_pdf(to_email, pdf_path):
+    msg = EmailMessage()
+    msg['Subject'] = 'Your Subsidy Calculation Report'
+    msg['From'] = os.environ.get("SMTP_USER")
+    msg['To'] = to_email
+    msg.set_content("Dear User,\n\nPlease find attached your subsidy calculation report.\n\nThanks,\nSubsidy4India")
+
+    with open(pdf_path, 'rb') as f:
+        file_data = f.read()
+        file_name = os.path.basename(pdf_path)
+
+    msg.add_attachment(file_data, maintype='application', subtype='pdf', filename=file_name)
+
+    with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
+        smtp.login(os.environ.get("SMTP_USER"), os.environ.get("SMTP_PASS"))
+        smtp.send_message(msg)
+
+#API Route
+@app.route("/calculate-subsidy", methods=["POST", "HEAD", "GET"])
 def calculate():
     try:
         data = request.get_json(force=True)
@@ -65,6 +84,11 @@ def calculate():
 
         if "error" in result:
             return jsonify({"error": result["error"]}), 400
+
+        # Extract email and send report
+        user_email = data.get("email")
+        if user_email:
+            send_email_with_pdf(user_email, result["pdf_path"])
 
         return jsonify({
             "zone": result["zone"],
