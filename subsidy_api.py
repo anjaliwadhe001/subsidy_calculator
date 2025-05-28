@@ -5,7 +5,7 @@ from subsidy import process_subsidy_application
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app, resources={r"/calculate-subsidy": {"origins": "https://subsidy4india.com"}})
+CORS(app)
 
 # Load Zone Mapping Data
 df = pd.read_csv("Zone_database.csv")
