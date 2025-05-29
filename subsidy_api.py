@@ -60,6 +60,7 @@ def calculate_subsidy(zone, enterprise_size, plant_machinery, building_civil_wor
 
 # API route to process and return PDF
 @app.route("/calculate-subsidy", methods=["POST"])
+
 def calculate():
     try:
         data = request.get_json(force=True)
@@ -81,6 +82,11 @@ def calculate():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-# Entry point
-if __name__ == "__main__":
-    app.run(debug=True)
+@app.route("/", methods=["GET"])
+def home():
+    return "Subsidy Calculator backend is running"
+
+if _name_ == "_main_":
+    import os
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=False)
