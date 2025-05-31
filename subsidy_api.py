@@ -86,5 +86,5 @@ def calculate():
 def home():
     return "Subsidy Calculator backend is running"
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     app.run(debug=True)
