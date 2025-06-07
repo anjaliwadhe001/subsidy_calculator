@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Subsidy Calculator</title>
+</head>
+<body>
+  <h1>Subsidy Calculator</h1>
+
+  <form id="subsidyForm">
+    <label>Name: <input name="name" required type="text" /></label><br/>
+    <label>Organization Name: <input name="organization_name" required type="text" /></label><br/>
+    <label>Email: <input name="email" required type="email" /></label><br/>
+    <label>State: <input name="state" required type="text" /></label><br/>
+    <label>District: <input name="district" required type="text" /></label><br/>
+    <label>Subdistrict: <input name="subdistrict" required type="text" /></label><br/>
+
+    <label>Enterprise Size:
+      <select name="enterprise_size" required>
+        <option value="">Select</option>
+        <option>Micro</option>
+        <option>Small</option>
+        <option>Medium</option>
+      </select>
+    </label><br/>
+
+    <label>Business Nature: <input name="business_nature" required type="text" /></label><br/>
+    <label>Industry Type: <input name="industry_type" required type="text" /></label><br/>
+    <label>Plant & Machinery (Rs): <input name="plant_machinery" required type="number" /></label><br/>
+    <label>Building & Civil Work (Rs): <input name="building_civil_work" required type="number" /></label><br/>
+
+    <label>Land Owned by Legal Entity:
+      <select name="land_owned_by_legal_entity" required>
+        <option value="">Select</option>
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select>
+    </label><br/>
+
+    <label>Land Cost (Rs): <input name="land_cost" type="number" /></label><br/>
+
+    <label>Loan Avail:
+      <select name="loan_avail" required>
+        <option value="">Select</option>
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select>
+    </label><br/>
+
+    <label>Loan Tenure (Years): <input name="loan_tenure" type="number" /></label><br/>
+    <label>Term Loan Amount (Rs): <input name="term_loan_amount" type="number" /></label><br/>
+    <label>Net SGST Paid (Rs): <input name="net_sgst_paid_cash_ledger" required type="number" /></label><br/>
+
+    <button type="submit">Calculate Subsidy</button>
+  </form>
+
+  <div id="result" style="margin-top: 20px;"></div>
+
+  <script>
+  document.getElementById('subsidyForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+
+    // Convert specific fields to numbers
+    ['plant_machinery', 'building_civil_work', 'land_cost', 'loan_tenure', 'term_loan_amount', 'net_sgst_paid_cash_ledger'].forEach(key => {
+      if (data[key]) {
+        data[key] = Number(data[key]);
+      }
+    });
+
+    console.log("🟡 Sending data to API:", data); // <-- log request body
+
+    try {
+      const response = await fetch('https://subsidy-api.onrender.com/calculate-subsidy', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      console.log("🟢 Response status:", response.status); // <-- log status
+      console.log("🟢 Response headers:", [...response.headers.entries()]); // <-- log headers
+
+      
+      
+   const contentType = response.headers.get("Content-Type");
+   console.log("🟢 Content-Type of response:", contentType);
+
+
+if (contentType && contentType.includes("application/json")) {
+  const result = await response.json();
+  console.log("🟢 Parsed JSON result:", result);
+
+  if (result.error) {
+    document.getElementById('result').innerHTML = `<p style="color:red;">${result.error}</p>`;
+  } else {
+    document.getElementById('result').innerHTML = `
+      <p><strong>Zone:</strong> ${result.zone}</p>
+      <p><strong>Total Subsidy:</strong> ₹${result.subsidy_breakup.total_subsidy.toLocaleString()}</p>
+      <p><a href="${result.pdf_path}" target="_blank">Download Report</a></p>
+    `;
+  }
+
+} else if (contentType && contentType.includes("application/pdf")) {
+  const blob = await response.blob();
+  const url = URL.createObjectURL(blob);
+
+  document.getElementById('result').innerHTML = `
+    <p><strong>Subsidy Report Generated.</strong></p>
+    <p><a href="${url}" download="Subsidy_Report.pdf">Download Report</a></p>
+    <iframe src="${url}" width="100%" height="600px"></iframe>
+  `;
+} else {
+  const text = await response.text();
+  console.error("🔴 Received unexpected response:", text);
+  document.getElementById('result').innerHTML = `<p style="color:red;">Unexpected response format from server.</p>`;
+}
+
+
+    } catch (err) {
+      console.error("🔴 Fetch error:", err); // <-- log any runtime errors
+      document.getElementById('result').innerHTML = `<p style="color:red;">Error connecting to server. Please try again.</p>`;
+    }
+  });
+</script>
+
+        
+</body>
+</html>
