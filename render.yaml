@@ -3,7 +3,7 @@ services:
     name: subsidy-api
     env: python
     buildCommand: "pip install -r requirements.txt"
-    startCommand: "python Subsidy_api.py"
+    startCommand: "gunicorn subsidy_api:app"
     envVars:
       - key: FLASK_ENV
         value: production
