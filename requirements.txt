@@ -4,3 +4,4 @@ pandas
 tabulate
 gunicorn
 flask_cors
+pathlib
