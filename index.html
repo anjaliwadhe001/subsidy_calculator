@@ -35,7 +35,7 @@
     <label>Building & Civil Work (Rs): <input name="building_civil_work" required type="number" /></label><br/>
 
     <label>Land Owned by Legal Entity:
-      <select name="Is land_owned_by_legal_entity ?" required>
+      <select name="land_owned_by_legal_entity" required>
         <option value="">Select</option>
         <option value="yes">Yes</option>
         <option value="no">No</option>
@@ -47,7 +47,7 @@
    </div>
 
     <label>Loan Avail:
-      <select name="Is term loan_availed?" required>
+      <select name=""loan_avail"" required>
         <option value="">Select</option>
         <option value="yes">Yes</option>
         <option value="no">No</option>
@@ -83,7 +83,7 @@
     console.log("🟡 Sending data to API:", data); // <-- log request body
 
     try {
-      const response = await fetch('https://subsidy-api.onrender.com/calculate-subsidy', {
+      const response = await fetch('https://thescpl.in/calculate-subsidy', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
