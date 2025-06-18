@@ -215,7 +215,7 @@
     console.log("🟡 Sending data to API:", data); // <-- log request body
 
     try {
-      const response = await fetch('https://subsidy-api-v2gi.onrender.com/calculate-subsidy', {
+      const response = await fetch('https://subsidy-api.onrender.com/calculate-subsidy', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
