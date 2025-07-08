@@ -1,7 +1,2 @@
-﻿Flask
-fpdf
+Flask
 pandas
-tabulate
-gunicorn
-flask_cors
-pathlib
