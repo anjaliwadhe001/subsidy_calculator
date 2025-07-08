@@ -1,9 +1,7 @@
 services:
   - type: web
     name: subsidy_calculator
-    env: python
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "gunicorn subsidy_calculator:app"
-    envVars:
-      - key: FLASK_ENV
-        value: production
+    runtime: python
+    buildCommand: ""
+    startCommand: "python subsidy_calculator.py"
+    plan: free
