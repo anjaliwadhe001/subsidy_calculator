@@ -1,4 +1,3 @@
-
 # report_generator file
 import pandas as pd
 import os
@@ -87,7 +86,7 @@ Interest subsidy & Rs. {result['interest_subsidy']} & 7 years & Rs.10 Cr per uni
 
 \\textbf{{3. Special Incentives for Priority Sectors \\& Zones}}
   \\begin{{itemize}}
-    \\item \\textbf{{Sector-Specific Tailored Incentives:}} Enhanced support for Electric Vehicles, Green Hydrogen, Data Centres, Agro \& Food Processing, Pharmaceuticals, etc.
+    \\item \\textbf{{Sector-Specific Tailored Incentives:}} Enhanced support for Electric Vehicles, Green Hydrogen, Data Centres, Agro \\& Food Processing, Pharmaceuticals, etc.
     \\item \\textbf{{Zone-Based Multipliers:}} Higher subsidies for units in backward or priority blocks (e.g., Bundelkhand, Chambal).
   \\end{{itemize}}
 
@@ -133,13 +132,13 @@ policy and non-cooperation by client
 
 \\end{{document}}
 """
-   with open("Subsidy_Report.tex", "w", encoding="utf-8") as f:
+    with open("Subsidy_Report.tex", "w", encoding="utf-8") as f:
         f.write(tex_content)
 
     result = subprocess.run(
         ["pdflatex", "-interaction=nonstopmode", "Subsidy_Report.tex"],
-        capture_output=True, 
-        text=True
+        capture_output=True, # Changed to capture_output=True
+        text=True # Changed to text=True for string output
     )
 
     if result.returncode != 0:
