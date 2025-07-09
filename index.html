@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subsidy Calculation Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: auto;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .state-specific-inputs {
+            border-top: 1px solid #eee;
+            margin-top: 20px;
+            padding-top: 20px;
+        }
+        button {
+            background-color: #ffe100;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #ffe100;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Subsidy Application Form</h2>
+    <form id="subsidyForm">
+        <div class="form-group">
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="organizationName">Organization Name:</label>
+            <input type="text" id="organizationName" name="organizationName" required>
+        </div>
+
+        <div class="form-group">
+            <label for="state">State:</label>
+            <select id="state" name="state" required>
+                <option value="">Select State</option>
+                <option value="Maharashtra">Maharashtra</option>
+                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                <option value="Punjab">Punjab</option>
+                <option value="Gujarat">Gujarat</option>
+                <option value="Tamilnadu">Tamilnadu</option>
+                <option value="Karnataka">Karnataka</option>
+                <option value="Haryana">Haryana</option>
+                <option value="Rajasthan">Rajasthan</option>
+            </select>
+        </div>
+
+        <div id="madhyaPradeshFields" class="state-specific-inputs hidden">
+            <h3>Madhya Pradesh Details</h3>
+            <div class="form-group">
+            <select name="district" id="District">
+                <option value="Indore">Indore</option>
+                <option value="Bhopal">Bhopal</option>
+                <option value="Jabalpur">Jabalpur</option>
+                <option value="Gwalior">Gwalior</option>
+                <option value="Ujjain">Ujjain</option>
+                <option value="Rewa">Rewa</option>
+                <option value="Satna">Satna</option>
+                <option value="Sagar">Sagar</option>
+                <option value="Dewas">Dewas</option>
+                <option value="Ratlam">Ratlam</option>
+                <option value="Mandsaur">Mandsaur</option>
+                <option value="Khargone">Khargone</option>
+                <option value="Khandwa">Khandwa</option>
+                <option value="Chhindwara">Chhindwara</option>
+                <option value="Betul">Betul</option>
+                <option value="Sehore">Sehore</option>
+                <option value="Vidisha">Vidisha</option>
+                <option value="Morena">Morena</option>
+                <option value="Bhind">Bhind</option>
+                <option value="Shivpuri">Shivpuri</option>
+                <option value="Guna">Guna</option>
+                <option value="Katni">Katni</option>
+                <option value="Damoh">Damoh</option>
+                <option value="Chhatarpur">Chhatarpur</option>
+                <option value="Shahdol">Shahdol</option>
+                <option value="Singrauli">Singrauli</option>
+                <option value="Seoni">Seoni</option>
+                <option value="Balaghat">Balaghat</option>
+                <option value="Barwani">Barwani</option>
+                <option value="Jhabua">Jhabua</option>
+            </select>
+            </div>
+            <div class="form-group">
+                <label for="enterpriseSize">Enterprise Size:</label>
+                <select id="enterpriseSize" name="enterpriseSize">
+                    <option value="">Select Size</option>
+                    <option value="Micro">Micro</option>
+                    <option value="Small">Small</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Large">Large</option>
+                    <option value="Mega">Mega</option>
+                    <option value="Super Mega">Super Mega</option>
+                    <option value="Ultra-Mega">Ultra-Mega</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="plantMachinery">Plant and Machinery Investment:</label>
+                <input type="number" id="plantMachinery" name="plantMachinery" step="any" min="0" required>
+            </div>
+            <div class="form-group">
+                <label for="buildingCivil">Building and Civil Work Investment:</label>
+                <input type="number" id="buildingCivil" name="buildingCivil" step="any" min="0" required>
+            </div>
+            <div class="form-group">
+                <label for="termLoanAvailed">Term Loan Availed?</label>
+                <select id="termLoanAvailed" name="termLoanAvailed">
+                    <option value="">Select Option</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+            <div class="form-group hidden" id="interestRateGroup">
+                <label for="interestRate">Interest Rate (%):</label>
+                <input type="number" id="interestRate" name="interestRate" step="any" min="0">
+            </div>
+            <div class="form-group hidden" id="TermLoanAmount">
+                <label for="TermLoanAmount">Term Loan Amount :</label>
+                <input type="number" id="TermLoanAmount" name="TermLoanAmount" step="any" min="0">
+            </div>
+        </div>
+
+        <button type="submit">Submit Application</button>
+    </form>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const stateSelect = document.getElementById('state');
+    const madhyaPradeshFields = document.getElementById('madhyaPradeshFields');
+    const subsidyForm = document.getElementById('subsidyForm');
+    const termLoanSelect = document.getElementById('termLoanAvailed');
+    const interestRateGroup = document.getElementById('interestRateGroup');
+    const TermLoanAmount = document.getElementById('TermLoanAmount');
+
+    function toggleStateFields() {
+        madhyaPradeshFields.classList.add('hidden');
+        if (stateSelect.value === 'Madhya Pradesh') {
+            madhyaPradeshFields.classList.remove('hidden');
+        }
+    }
+
+    stateSelect.addEventListener('change', toggleStateFields);
+    toggleStateFields();
+
+    termLoanSelect.addEventListener('change', () => {
+    if (termLoanSelect.value === 'Yes') {
+        interestRateGroup.classList.remove('hidden');
+        document.getElementById('interestRate').setAttribute('required', 'true');
+
+        TermLoanAmount.classList.remove('hidden');
+        document.getElementById('TermLoanAmount').setAttribute('required', 'true');
+    } else {
+        interestRateGroup.classList.add('hidden');
+        document.getElementById('interestRate').removeAttribute('required');
+
+        TermLoanAmount.classList.add('hidden');
+        document.getElementById('TermLoanAmount').removeAttribute('required');
+    }
+});
+
+
+    subsidyForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formData = new FormData(subsidyForm);
+        const data = {};
+        for (const [key, value] of formData.entries()) {
+            if (value) data[key] = value;
+        }
+        fetch('https://subsidy-calculator.onrender.com/subsidy_api', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+        .then(res => res.json())
+        .then(response => {
+            if (response.pdf_url) {
+                const link = document.createElement('a');
+                link.href = response.pdf_url;
+                link.download = 'Subsidy_Report.pdf';
+                link.textContent = 'Download your subsidy report PDF';
+                link.style.display = 'block';
+                link.style.marginTop = '20px';
+                document.querySelector('.container').appendChild(link);
+            } else {
+                alert('PDF generation failed.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Submission failed.');
+        });
+    });
+});
+</script>
+</body>
+</html>
