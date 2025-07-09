@@ -133,16 +133,19 @@ policy and non-cooperation by client
 
 \\end{{document}}
 """
-    with open("Subsidy_Report.tex", "w", encoding="utf-8") as f:
+   with open("Subsidy_Report.tex", "w", encoding="utf-8") as f:
         f.write(tex_content)
 
     result = subprocess.run(
         ["pdflatex", "-interaction=nonstopmode", "Subsidy_Report.tex"],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE
+        capture_output=True, 
+        text=True
     )
 
     if result.returncode != 0:
-        raise Exception("LaTeX compilation failed. Check .log file for details.")
+        print("LaTeX compilation failed!")
+        print("STDOUT:", result.stdout)
+        print("STDERR:", result.stderr)
+        raise Exception(f"LaTeX compilation failed. Check .log file for details. Error: {result.stderr}")
 
     return "Subsidy_Report.pdf"
