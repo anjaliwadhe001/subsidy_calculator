@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify, send_file
+from flasy_cors import CORS
 #from subsidy_rajasthan import process_rajasthan
 #from subsidy_haryana import process_haryana
 #from subsidy_up_msme import process_up_msme
@@ -12,6 +13,7 @@ from subsidy_madhyapradesh import process_madhyapradesh
 import os
 
 app = Flask(__name__)
+CORS(app, origins=["http://thescpl.in", "https://thescpl.in"], supports_credentials=True)
 
 @app.route("/subsidy", methods=["POST"])
 def calculate_subsidy():
