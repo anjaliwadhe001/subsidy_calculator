@@ -25,11 +25,11 @@ def calculate_subsidy(plant_machinery, building_civil_work,
     else:
         capital_subsidy = 2000000000
 
-    # No Stamp Duty Subsidy in Madhyapradesh
+    # No Stamp Duty Subsidy and SGST reimbursement  in Madhyapradesh
 
     # Interest Subsidy
-    annual_interest = term_loan_amount * 0.06 * 7
-    interest_paid =  interest_rate * term_loan_amount * 7
+    annual_interest = term_loan_amount * 0.06 * 7 #6% interest rate for 7 years 
+    interest_paid =  interest_rate * term_loan_amount * 7 #interest paid by user 
     interest_subsidy = min(annual_interest, interest_paid, 100000000) #max 10 crore
 
     # Total subsidy 
