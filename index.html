@@ -208,16 +208,16 @@ document.addEventListener('DOMContentLoaded', function() {
         for (const [key, value] of formData.entries()) {
             if (value) data[key] = value;
         }
-        fetch('https://subsidy-calculator.onrender.com/subsidy_api', {
+        fetch('https://subsidy-calculator.onrender.com/subsidy', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
         })
         .then(res => res.json())
         .then(response => {
-            if (response.pdf_url) {
+            if (response.report_path) {
                 const link = document.createElement('a');
-                link.href = response.pdf_url;
+                link.href = `https://subsidy-calculator.onrender.com/download_pdf/${response.report_path}`;
                 link.download = 'Subsidy_Report.pdf';
                 link.textContent = 'Download your subsidy report PDF';
                 link.style.display = 'block';
@@ -227,6 +227,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert('PDF generation failed.');
             }
         })
+
         .catch(error => {
             console.error('Error:', error);
             alert('Submission failed.');
