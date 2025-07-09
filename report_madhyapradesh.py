@@ -2,6 +2,7 @@
 # report_generator file
 import pandas as pd
 import os
+import subprocess
 
 def generate_report_mp(user_data, result):
     tex_content = f"""
@@ -25,8 +26,8 @@ Offices in New Delhi \\& New York\\\\
 
 \\vspace{{1em}}
 
-\\item {user_data['Organization Name']} \\\\
-\\item {user_data['District']}, {user_data['State']} \\\\
+{user_data['Organization Name']} \\\\
+{user_data['District']}, {user_data['State']} \\\\
 \\textbf{{Attn.:}} {user_data['Name']}
 
 \\vspace{{1em}}
@@ -45,15 +46,15 @@ Promotion.
 \\end{{itemize}}
 
 \\section*{{Subsidy Breakdown}}
-\\begin{{itemize}}[leftmargin=1.5em]
-  \\item \\textbf{{Capital investment subsidy (One-time):}} The Basic Investment Promotion Assistance (BIPA) under the Madhya Pradesh Industrial Promotion Policy 2025 is a capital subsidy provided as a percentage of Eligible Fixed Capital Investment (EFCI). \\\\
-  • The BIPA subsidy ranges from 40\\% down to 10\\% of EFCI for large units, depending on the investment amount.\\\\
-  • The maximum subsidy amount is Rs. 200 crore, disbursed in 7 equal annual installments.
-  
-\\item \\textbf{{Interest subsidy(applicable only when a term loan is availed for the project):}} Interest Subsidy is available 6\\% interest reimbursement on term loans,
-or the actual interest paid whichever is lowerwith the cap of Rs 10 crores per unit over period of 7 years.\\\\
-\\item Term loans taken for capital expenditure (plant, machinery, infrastructure, and technology upgrades) are covered.\\\\
-\\itemm Special emphasis is given to women-led businesses, green-tech, and sectors like IT/ITeS, semiconductors, textiles, and EVs, which may have tailored rates or additional support.
+  \\begin{{itemize}}[leftmargin=1.5em]
+  \\textbf{{1. Capital investment subsidy (One-time):}} The Basic Investment Promotion Assistance (BIPA) under the Madhya Pradesh Industrial Promotion Policy 2025 is a capital subsidy provided as a percentage of Eligible Fixed Capital Investment (EFCI). \\\\
+        \\item The BIPA subsidy ranges from 40\\% down to 10\\% of EFCI for large units, depending on the investment amount.\\\\
+        \\item The maximum subsidy amount is Rs. 200 crore, disbursed in 7 equal annual installments.
+    
+  \\textbf{{2. Interest subsidy(applicable only when a term loan is availed for the project):}} Interest Subsidy is available 6\\% interest reimbursement on term loans,or the actual interest paid whichever is lowerwith the cap of Rs 10 crores per unit over period of 7 years.\\\\
+        \\item Term loans taken for capital expenditure (plant, machinery, infrastructure, and technology upgrades) are covered.\\\\
+        \\itemm Special emphasis is given to women-led businesses, green-tech, and sectors like IT/ITeS, semiconductors, textiles, and EVs, which may have tailored rates or additional support. \\\\
+  \\end{{itemize}}
 
 \\section*{{Costing Table}}
 \\begin{{longtable}}{{|p{{4cm}}|p{{4cm}}|p{{3cm}}|p{{4cm}}|}}
@@ -107,7 +108,7 @@ reimbursement application.
       \\item If there is a delay in receipt of the subsidy amount due to operational reasons or budget 
       allocation delay with the respective Govt. Department, SCPL will keep the client informed at 
       every step
-  \\end{{itemsize}}
+  \\end{{itemize}}
 
 \\section*{{Value Added Services }} 
   \\begin{{itemize}}[leftmargin=1.5em]
@@ -115,7 +116,7 @@ reimbursement application.
       \\item  Market Research to plan your Go To Market Strategy  
       \\item  DSIR (R\\&D certification) project for accessing R\\&D funding including grants from Govt. agencies  
       \\item  Intellectual Property protection by filing patent, design registration, trademark and copyright in India and global jurisdictions 
-  \\end{{itemsize}}
+  \\end{{itemize}}
 
 \\section*{{Not sure}} 
 \\item Conduct a referral check by asking to get in touch with our happy customers
@@ -135,6 +136,13 @@ policy and non-cooperation by client
     with open("Subsidy_report_Madhyapradesh.tex", "w", encoding="utf-8") as f:
         f.write(tex_content)
 
-    # Compile to PDF
-    os.system("pdflatex -interaction=nonstopmode Subsidy_report_Madhyapradesh.tex")
+    result = subprocess.run(
+        ["pdflatex", "-interaction=nonstopmode", "Subsidy_report_Madhyapradesh.tex"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE
+    )
+
+    if result.returncode != 0:
+        raise Exception("LaTeX compilation failed. Check .log file for details.")
+
     return "Subsidy_report_Madhyapradesh.pdf"
