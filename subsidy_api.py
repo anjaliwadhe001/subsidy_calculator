@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, send_file
-from flasy_cors import CORS
+from flask_cors import CORS
 #from subsidy_rajasthan import process_rajasthan
 #from subsidy_haryana import process_haryana
 #from subsidy_up_msme import process_up_msme
