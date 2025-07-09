@@ -1,14 +1,14 @@
 from flask import Flask, request, jsonify, send_file
-from subsidy_rajasthan import process_rajasthan
-from subsidy_haryana import process_haryana
-from subsidy_up_msme import process_up_msme
-from subsidy_uttarpradesh import process_up
+#from subsidy_rajasthan import process_rajasthan
+#from subsidy_haryana import process_haryana
+#from subsidy_up_msme import process_up_msme
+#from subsidy_uttarpradesh import process_up
 from subsidy_madhyapradesh import process_madhyapradesh
-from subsidy_karnataka import process_karnataka
-from subsidy_tamilnadu import process_tamilnadu 
-from subsidy_maharashtra import process_maharashtra
-from subsidy_gujarat import process_gujarat
-from subsidy_punjab import process_punjab
+#from subsidy_karnataka import process_karnataka
+#from subsidy_tamilnadu import process_tamilnadu 
+#from subsidy_maharashtra import process_maharashtra
+#from subsidy_gujarat import process_gujarat
+#from subsidy_punjab import process_punjab
 import os
 
 app = Flask(__name__)
