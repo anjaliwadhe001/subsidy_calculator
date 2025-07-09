@@ -133,11 +133,11 @@ policy and non-cooperation by client
 
 \\end{{document}}
 """
-    with open("Subsidy_report_Madhyapradesh.tex", "w", encoding="utf-8") as f:
+    with open("Subsidy_Report.tex", "w", encoding="utf-8") as f:
         f.write(tex_content)
 
     result = subprocess.run(
-        ["pdflatex", "-interaction=nonstopmode", "Subsidy_report_Madhyapradesh.tex"],
+        ["pdflatex", "-interaction=nonstopmode", "Subsidy_Report.tex"],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE
     )
@@ -145,4 +145,4 @@ policy and non-cooperation by client
     if result.returncode != 0:
         raise Exception("LaTeX compilation failed. Check .log file for details.")
 
-    return "Subsidy_report_Madhyapradesh.pdf"
+    return "Subsidy_Report.pdf"
