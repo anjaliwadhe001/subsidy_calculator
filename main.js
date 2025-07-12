@@ -78,7 +78,7 @@ form.addEventListener("submit", async (e) => {
 
   try {
     console.log('Calling the api')
-    const response = await fetch("https://subsidy-calculator.onrender.com/subsidy", {
+    const response = await fetch("http://localhost:5000/subsidy", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
@@ -90,7 +90,7 @@ form.addEventListener("submit", async (e) => {
 
     if (result.report_path) {
       const filename = result.report_path.split("/").pop();
-      const downloadUrl = `https://subsidy-calculator.onrender.com/download_pdf/${filename}`;
+      const downloadUrl = `http://localhost:5000/download_pdf/${filename}`;
       statusDiv.innerHTML = `Report generated. <a href="${downloadUrl}" target="_blank" download>Click to download PDF</a>`;
     } else {
       statusDiv.innerHTML = `Error: ${result.error || "Unknown error"}`;
