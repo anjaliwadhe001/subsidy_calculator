@@ -2,10 +2,10 @@ import { renderForm as renderMP } from './madhyapradesh.js';
 //import { renderForm as renderUPMSME } from './uttarpradesh_msme.js';
 //import { renderForm as renderUP } from './uttarpradesh.js';
 import { renderForm as renderPunjab } from './punjab.js';
-//import { renderForm as renderHaryana } from './haryana.js';
+import { renderForm as renderHaryana } from './haryana.js';
 //import { renderForm as renderTamilnadu } from './tamilnadu.js';
 import { renderForm as renderKarnataka } from './karnataka.js';
-//import { renderForm as renderRajasthan } from './rajasthan.js';
+import { renderForm as renderRajasthan } from './rajasthan.js';
 //import { renderForm as renderMaharshtra } from './maharashtra.js';
 //import { renderForm as renderGujarat } from './gujarat.js';
 
