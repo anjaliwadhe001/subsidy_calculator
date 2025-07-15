@@ -89,8 +89,8 @@ def process_haryana(data):
         subdistrict = data["Subdistrict"].strip().lower()
         plant_machinery = safe_float(data["Plant and Machinery Investment"])
         building_civil_work = safe_float(data["Building and Civil Work Investment"])
-        land_cost = safe_float(data["Land Cost"])
-        term_loan_amount = safe_float(data["Term Loan Amount"])
+        land_cost = safe_float(data.get("Land Cost",0))
+        term_loan_amount = safe_float(data.get(["Term Loan Amount"],0))
         net_sgst_paid_cash_ledger = safe_float(data["Net SGST Paid Cash Ledger"])
 
         # Zone lookup

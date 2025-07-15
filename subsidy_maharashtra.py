@@ -37,8 +37,8 @@ def calculate_subsidy(zone, plant_machinery, building_civil_work, land_cost,
     sgst_reimbursement = 0 
 
     # Capital Subsidy and SGST Reimbursement for Zone A
-    capital_subsidy = (zone_info["Capital Subsidy Rate"]/100) * capital_investment #Ask about eligibility years for this
-
+    capital_subsidy = (zone_info["Capital Subsidy Rate"]/100) * capital_investment 
+    
     # Stamp Duty Subsidy 
     if zone in ["A", "B"]:
         stamp_duty_waive_off = 0
@@ -82,8 +82,8 @@ def process_maharashtra(data):
         subdistrict = data["Subdistrict"].strip().lower()
         plant_machinery = float(data["Plant and Machinery Investment"])
         building_civil_work = float(data["Building and Civil Work Investment"])
-        land_cost = float(data["Land Cost"])
-        term_loan_amount = float(data["Term Loan Amount"])
+        land_cost = float(data.get(["Land Cost"],0))
+        term_loan_amount = float(data.get(["Term Loan Amount"],0))
         net_sgst_paid_cash_ledger = float(data["Net SGST Paid Cash Ledger"])
 
         # Zone lookup

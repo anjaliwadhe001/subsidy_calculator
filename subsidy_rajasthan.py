@@ -31,7 +31,7 @@ zone_data = {
 
 # Calculation logic
 def calculate_subsidy(zone, enterprise_size, plant_machinery, building_civil_work, industry_type,
-                      term_loan_amount, net_sgst_paid_cash_ledger,turn_over):
+                      term_loan_amount, net_sgst_paid_cash_ledger, turn_over):
     
     zone_info = zone_data.get(zone)
     index = zone_info["Enterprise Size"].index(enterprise_size.strip().capitalize())
@@ -108,7 +108,7 @@ def process_rajasthan(data):
         industry_type = data["Industry Type"]
         plant_machinery = float(data["Plant and Machinery Investment"])
         building_civil_work = float(data["Building and Civil Work Investment"])
-        term_loan_amount = float(data.get(("Term Loan Amount"),0))
+        term_loan_amount = float(data.get("Term Loan Amount"),0)
         net_sgst_paid_cash_ledger = float(data["Net SGST Paid Cash Ledger"])
         turn_over = float(data["Net Turnover"])
 

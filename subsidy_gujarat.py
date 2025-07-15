@@ -1,5 +1,3 @@
-#multiply by eligibility years in interest subsidy
-
 import pandas as pd
 from report_gujarat import generate_report_gujarat
 
@@ -63,7 +61,7 @@ def calculate_subsidy(zone, enterprise_size, plant_machinery, building_civil_wor
 
     # Capital Subsidy (available for Micro & Mega)
     # Available only for enterprises 
-    capital_subsidy_rate = zone_info[ "Capital Subsidy(%)"][index] 
+    capital_subsidy_rate = zone_info["Capital Subsidy(%)"][index] 
     capital_subsidy = capital_subsidy_rate/100 * capital_investment
 
     #Sgst_reimbursement
@@ -128,8 +126,8 @@ def process_gujarat(data):
         plant_machinery = float(data["Plant and Machinery Investment"])
         building_civil_work = float(data["Building and Civil Work Investment"])
         net_sgst_paid_cash_ledger = float(data["Net SGST Paid Cash Ledger"])
-        land_cost = float(data["Land Cost"])
-        term_loan_amount = float(data["Term Loan Amount"])
+        land_cost = float(data.get("Land Cost",0))
+        term_loan_amount = float(data.get(("Term Loan Amount"), 0))
 
         # Zone lookup
         zone_row = df[df['Subdistrict'].str.lower() == subdistrict]

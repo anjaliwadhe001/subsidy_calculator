@@ -82,9 +82,9 @@ def process_up_msme(data):
         enterprise_size = data["Enterprise Size"]
         plant_machinery = float(data["Plant and Machinery Investment"])
         building_civil_work = float(data["Building and Civil Work Investment"])
-        land_cost = float(data["Land Cost"])
-        interest_rate = float(data["Interest rate(%)"])
-        term_loan_amount = float(data["Term Loan Amount"])
+        land_cost = float(data.get(["Land Cost"],0))
+        interest_rate = float(data.get(["Interest rate(%)"],0))
+        term_loan_amount = float(data.get(["Term Loan Amount"],0))
 
         #Zone 
         zone_row = df[df['District'].str.lower() == district]

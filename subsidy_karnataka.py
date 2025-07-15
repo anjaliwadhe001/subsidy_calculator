@@ -37,6 +37,11 @@ def calculate_subsidy(zone, enterprise_size, plant_machinery, building_civil_wor
     enterprise_size = enterprise_size.strip().capitalize()
     capital_investment = plant_machinery + building_civil_work
 
+    capital_subsidy = 0
+    interest_subsidy = 0 
+    stamp_duty_subsidy = 0 
+    sgst_reimbursement = 0
+
     # Capital Subsidy 
     capital_subsidy =(zone_info[ "Capital Subsidy(%)"][index] /100)* capital_investment
 
@@ -86,8 +91,8 @@ def process_karnataka(data):
         plant_machinery = float(data["Plant and Machinery Investment"])
         building_civil_work = float(data["Building and Civil Work Investment"])
         turn_over = float(data["Net Turnover"])
-        land_cost = float(data["Land Cost"])
-        term_loan_amount = float(data["Term Loan Amount"])
+        land_cost = float(data.get("Land Cost", 0))
+        term_loan_amount = float(data.get("Term Loan Amount", 0))
         
 
         # Zone lookup
