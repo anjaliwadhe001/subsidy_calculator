@@ -30,6 +30,17 @@ export function renderForm(container) {
     </div>
 
     <div class="form-group">
+      <label for="industryType">Industry Type:</label>
+      <select id="industryType" id="industryType" name="Industry Type" required>
+      <option value="">Select</option>
+      <option value="Plastic Alternatives">Plastic Alternatives</option>
+      <option value="Agriculture processing">Agriculture processing</option>
+      <option value="Food processing">Food processing</option>
+      <option value="Other">Other</option>
+    </div>
+
+
+    <div class="form-group">
       <label for="landOwned">Is land owned by legal entity?</label>
       <select id="landOwned" name="Land Owned By Legal Entity?" required>
         <option value="">Select</option>
