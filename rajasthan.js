@@ -75,8 +75,8 @@ export function renderForm(container) {
     </div>
 
     <div class="form-group">
-      <label for="netsgstpaidcashLedger">Net SGST Cash Ledger:</label>
-      <input type="number" id="netsgstpaidcashLedger" name="Net SGST Cash Ledger" required>
+      <label for="netsgstpaidcashLedger">Net SGST Paid Cash Ledger:</label>
+      <input type="number" id="netsgstpaidcashLedger" name="Net SGST Paid Cash Ledger" required>
     </div>
   `;
 
