@@ -108,7 +108,7 @@ def process_rajasthan(data):
         industry_type = data["Industry Type"]
         plant_machinery = float(data["Plant and Machinery Investment"])
         building_civil_work = float(data["Building and Civil Work Investment"])
-        term_loan_amount = float(data["Term Loan Amount"])
+        term_loan_amount = float(data.get(("Term Loan Amount"),0))
         net_sgst_paid_cash_ledger = float(data["Net SGST Paid Cash Ledger"])
         turn_over = float(data["Net Turnover"])
 
