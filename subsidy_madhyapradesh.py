@@ -47,27 +47,15 @@ def calculate_subsidy(plant_machinery, building_civil_work,
         "total_subsidy": round(total_subsidy, 2)
     }    
 
-def safe_float(value):
-    try:
-        return float(str(value).replace(",", "").replace("Rs.", "").strip())
-    except:
-        return 0.0
-
 
 def process_madhyapradesh(data):
     try:
-        
-        print("A")
         # Extract values
-        plant_machinery = safe_float(data["Plant and Machinery Investment"])
-        print("B: ", data.get("Plant and Machinery Investment"))
-        building_civil_work = safe_float(data["Building and Civil Work Investment"])
-        print("C: ", building_civil_work)
-        term_loan_amount = safe_float(data["Term Loan Amount"])
-        print("D: ", term_loan_amount)
-        interest_rate = safe_float(data["Interest Rate"])
-        print("E: ", interest_rate)
-
+        plant_machinery = float(data["Plant and Machinery Investment"])
+        building_civil_work = float(data["Building and Civil Work Investment"])
+        term_loan_amount = float(data.get("Term Loan Amount", 0))
+        interest_rate = float(data.get("Interest Rate", 0))
+    
         # Perform calculations
         result = calculate_subsidy(
             plant_machinery,
