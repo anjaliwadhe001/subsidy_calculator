@@ -37,22 +37,11 @@ export function renderForm(container) {
       <option value="Agriculture processing">Agriculture processing</option>
       <option value="Food processing">Food processing</option>
       <option value="Other">Other</option>
-      </select>
     </div>
 
-
-    <div class="form-group">
-      <label for="landOwned">Is land owned by legal entity?</label>
-      <select id="landOwned" name="Land Owned By Legal Entity?" required>
-        <option value="">Select</option>
-        <option value="Yes">Yes</option>
-        <option value="No">No</option>
-      </select>
-    </div>
-
-    <div class="form-group hidden" id="landCostGroup">
-      <label for="landCost">Land Cost:</label>
-      <input type="number" id="landCost" name="Land Cost">
+    <div class="form-group hidden" id="turnoverLinkedincentive">
+      <label for="turnoverLinkedincentive">Turn Over Linked Incentive:</label>
+      <input type="number" id="turnoverLinkedincentive" name="Turn Over Linked Incentive">
     </div>
 
     <div class="form-group">
@@ -64,19 +53,14 @@ export function renderForm(container) {
       </select>
     </div>
 
-    <div class="form-group hidden" id="interestRateGroup">
-      <label for="interestRate">Interest Rate (%):</label>
-      <input type="number" id="interestRate" name="Interest Rate">
-    </div>
-
     <div class="form-group hidden" id="termloanAmount">
       <label for="termloanAmount">Term Loan Amount:</label>
       <input type="number" id="termloanAmountInput" name="Term Loan Amount">
     </div>
 
     <div class="form-group">
-      <label for="netsgstpaidcashLedger">Net SGST Paid Cash Ledger:</label>
-      <input type="number" id="netsgstpaidcashLedger" name="Net SGST Paid Cash Ledger" required>
+      <label for="netsgstpaidcashLedger">Net SGST Cash Ledger:</label>
+      <input type="number" id="netsgstpaidcashLedger" name="Net SGST Cash Ledger" required>
     </div>
   `;
 
@@ -103,14 +87,5 @@ export function renderForm(container) {
     subdistrictSelect.innerHTML = `<option value="">Select Subdistrict</option>` +
       subdistricts.map(sd => `<option value="${sd.trim()}">${sd.trim()}</option>`).join("");
   });
-
-  const landOwned = container.querySelector("#landOwned");
-  const landCostGroup = container.querySelector("#landCostGroup");
-  const landCostInput = landCostGroup.querySelector("input");
-
-  landOwned.addEventListener("change", () => {
-    const showLandCost = landOwned.value === "Yes";
-    landCostGroup.classList.toggle("hidden", !showLandCost);
-    landCostInput.required = showLandCost;
-  });
+  
 }
