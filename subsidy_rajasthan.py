@@ -50,7 +50,7 @@ def calculate_subsidy(zone, enterprise_size, plant_machinery, building_civil_wor
         capital_subsidy = min(0.50 * capital_investment, 4000000)
     elif enterprise_size in ["Small", "Medium", "Micro"] and industry_type in["Agriculture processing", "Food processing"]: 
         capital_subsidy = min(0.50 * capital_investment, 15000000)
-    elif enterprise_size in ["Large", "Mega", "Ultra Mega"]:
+    elif enterprise_size in ["Large", "Mega", "Ultra Mega"] and industry_type == "Other":
         capital_subsidy = capital_investment * (zone_info["Capital Investment Subsidy(%)"][index]/100)
     else:
         capital_subsidy = 0
