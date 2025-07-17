@@ -77,7 +77,7 @@ form.addEventListener("submit", async (e) => {
   console.log("Collected form data:", data);
 
   try {
-    const response = await fetch("http://192.168.29.67:5000/subsidy", {
+    const response = await fetch("https://subsidy-calculator-1.onrender.com/subsidy", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
