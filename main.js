@@ -42,7 +42,7 @@ stateSelect.addEventListener("change", () => {
     } else if (state === "Karnataka") {
       renderKarnataka(stateFormArea);
     } else if (state === "Maharashtra") {
-      renderMaharshtra(stateFormArea);
+      renderMaharashtra(stateFormArea);
     } else if (state === "Rajasthan") {
       renderRajasthan(stateFormArea);
     } else if (state === "Gujarat") {
