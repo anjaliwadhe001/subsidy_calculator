@@ -73,11 +73,6 @@ def calculate_subsidy(zone, enterprise_size, plant_machinery, building_civil_wor
         "sgst_reimbursement": round(sgst_reimbursement, 2),
         "total_subsidy": round(total_subsidy, 2)
     }
-def safe_float(value):
-    try:
-        return float(str(value).replace(",", "").replace("Rs.", "").strip())
-    except:
-        return 0.0
 
 def process_haryana(data):
     try:
@@ -87,11 +82,11 @@ def process_haryana(data):
             raise ValueError("Missing 'Enterprise Size' in input data.")
 
         subdistrict = data["Subdistrict"].strip().lower()
-        plant_machinery = safe_float(data["Plant and Machinery Investment"])
-        building_civil_work = safe_float(data["Building and Civil Work Investment"])
-        land_cost = safe_float(data.get("Land Cost",0))
-        term_loan_amount = safe_float(data.get(["Term Loan Amount"],0))
-        net_sgst_paid_cash_ledger = safe_float(data["Net SGST Paid Cash Ledger"])
+        plant_machinery = float(data["Plant and Machinery Investment"])
+        building_civil_work = float(data["Building and Civil Work Investment"])
+        land_cost = float(data.get("Land Cost",0))
+        term_loan_amount = float(data.get("Term Loan Amount",0))
+        net_sgst_paid_cash_ledger = float(data["Net SGST Paid Cash Ledger"])
 
         # Zone lookup
         zone_row = df[df['Subdistrict'].str.lower() == subdistrict]
