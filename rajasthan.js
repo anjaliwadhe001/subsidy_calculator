@@ -37,6 +37,7 @@ export function renderForm(container) {
       <option value="Agriculture processing">Agriculture processing</option>
       <option value="Food processing">Food processing</option>
       <option value="Other">Other</option>
+      </select>
     </div>
 
     <div class="form-group hidden" id="turnoverLinkedincentive">
