@@ -47,8 +47,6 @@ stateSelect.addEventListener("change", () => {
       renderRajasthan(stateFormArea);
     } else if (state === "Gujarat") {
       renderGujarat(stateFormArea);
-    } else if (state === "Maharashtra"){
-      renderMaharashtra(stateFormArea);
     } else {
       stateFormArea.innerHTML = `<p style="color:red;">No form available for ${state}</p>`;
     }
