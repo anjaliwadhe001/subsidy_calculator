@@ -20,6 +20,19 @@ export function renderForm(container) {
     </div>
 
     <div class="form-group">
+      <label for="enterpriseSize">Enterprise Size:</label>
+      <select id="enterpriseSize" name="Enterprise Size" required>
+        <option value="">Select</option>
+        <option value="Micro">Micro</option>
+        <option value="Small">Small</option>
+        <option value="Medium">Medium</option>
+        <option value="Large">Large</option>
+        <option value="Mega">Mega</option>
+        <option value="Ultra Mega">Ultra Mega</option>
+      </select>
+    </div>
+
+    <div class="form-group">
       <label for="plantMachinery">Plant & Machinery Investment:</label>
       <input type="number" id="plantMachinery" name="Plant and Machinery Investment" required>
     </div>
@@ -32,17 +45,17 @@ export function renderForm(container) {
     <div class="form-group">
       <label for="industryType">Industry Type:</label>
       <select id="industryType" name="Industry Type" required>
-      <option value="">Select</option>
-      <option value="Plastic Alternatives">Plastic Alternatives</option>
-      <option value="Agriculture processing">Agriculture processing</option>
-      <option value="Food processing">Food processing</option>
-      <option value="Other">Other</option>
+        <option value="">Select</option>
+        <option value="Plastic Alternatives">Plastic Alternatives</option>
+        <option value="Agriculture processing">Agriculture processing</option>
+        <option value="Food processing">Food processing</option>
+        <option value="Other">Other</option>
       </select>
     </div>
 
-    <div class="form-group hidden" id="turnoverLinkedincentive">
-      <label for="turnoverLinkedincentive">Turn Over Linked Incentive:</label>
-      <input type="number" id="turnoverLinkedincentive" name="Turn Over Linked Incentive">
+    <div class="form-group hidden" id="turnoverField">
+      <label for="netTurnover">Net Turnover:</label>
+      <input type="number" id="netTurnover" name="Net Turnover">
     </div>
 
     <div class="form-group">
@@ -55,7 +68,7 @@ export function renderForm(container) {
     </div>
 
     <div class="form-group hidden" id="termloanAmount">
-      <label for="termloanAmount">Term Loan Amount:</label>
+      <label for="termloanAmountInput">Term Loan Amount:</label>
       <input type="number" id="termloanAmountInput" name="Term Loan Amount">
     </div>
 
@@ -65,21 +78,13 @@ export function renderForm(container) {
     </div>
   `;
 
-  const termLoan = container.querySelector("#termLoan");
-  const interestRateGroup = container.querySelector("#interestRateGroup");
-  const termloanAmount = container.querySelector("#termloanAmount");
-
-  termLoan.addEventListener("change", () => {
-    const isYes = termLoan.value === "Yes";
-    interestRateGroup.classList.toggle("hidden", !isYes);
-    interestRateGroup.querySelector("input").required = isYes;
-
-    termloanAmount.classList.toggle("hidden", !isYes);
-    termloanAmount.querySelector("input").required = isYes;
-  });
-
   const districtSelect = container.querySelector("#rajasthanDistrict");
   const subdistrictSelect = container.querySelector("#rajasthanSubdistrict");
+  const termLoan = container.querySelector("#termLoan");
+  const termloanAmount = container.querySelector("#termloanAmount");
+  const industryType = container.querySelector("#industryType");
+  const enterpriseSize = container.querySelector("#enterpriseSize");
+  const turnoverField = container.querySelector("#turnoverField");
 
   districtSelect.addEventListener("change", () => {
     const selectedDistrict = districtSelect.value;
@@ -88,5 +93,22 @@ export function renderForm(container) {
     subdistrictSelect.innerHTML = `<option value="">Select Subdistrict</option>` +
       subdistricts.map(sd => `<option value="${sd.trim()}">${sd.trim()}</option>`).join("");
   });
-  
+
+  termLoan.addEventListener("change", () => {
+    const isYes = termLoan.value === "Yes";
+    termloanAmount.classList.toggle("hidden", !isYes);
+    termloanAmount.querySelector("input").required = isYes;
+  });
+
+  function updateTurnoverVisibility() {
+    const type = industryType.value;
+    const size = enterpriseSize.value;
+    const needsTurnover = type === "Other" && ["Large", "Mega", "Ultra Mega"].includes(size);
+
+    turnoverField.classList.toggle("hidden", !needsTurnover);
+    turnoverField.querySelector("input").required = needsTurnover;
+  }
+
+  industryType.addEventListener("change", updateTurnoverVisibility);
+  enterpriseSize.addEventListener("change", updateTurnoverVisibility);
 }

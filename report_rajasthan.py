@@ -1,8 +1,19 @@
 # report_generator file
 import pandas as pd
+import subprocess
 import os
 
 def generate_report_rajasthan(user_data, result, zone):
+    output_dir = "reports"
+    os.makedirs(output_dir, exist_ok=True)
+
+    safe_name = user_data.get("Name", "user").replace(" ", "_")
+    filename = f"{safe_name}_Subsidy_Report.pdf"
+    tex_filename = f"{safe_name}_Subsidy_Report.tex"
+
+    tex_path = os.path.join(output_dir, tex_filename)
+    pdf_path = os.path.join(output_dir, filename)
+
     tex_content = f"""
 \\documentclass[11pt]{{article}}
 \\usepackage{{geometry}}
@@ -17,7 +28,6 @@ def generate_report_rajasthan(user_data, result, zone):
 \\Huge\\textbf{{Subsidy4India, a venture of SCPL}}\\\\[0.5em]
 \\large 305, Regent Chambers, Nariman Point, Mumbai 400021 (INDIA)\\\\
 Offices in New Delhi \\& New York\\\\
-
 \\end{{center}}
 
 \\textbf{{Date: {pd.Timestamp.now().strftime('%Y-%m-%d')}}}
@@ -38,36 +48,36 @@ Subsidy4India has identified various subsidies available for your organisation f
 
 \\section*{{Subsidy Breakdown}} 
 \\begin{{itemize}}[leftmargin=1.5em]
-\\textbf{{1.Asset Creation Incentives (Choose One)}} \\\\
+\\textbf{{1.Asset Creation Incentives (Choose One)}} \\\\
 
     \\item \\textbf{{(a)Capital investment subsidy (One-time):}} According to MSME Policy 2024, Plastic alternative, Agricultural and Food processing industries will get subsidy 50\\% of their capital investment with the cap of Rs. 40 lakhs and Rs. 1.5 Crore respectively. \\\\
     \\\\
     \\item \\textbf{{(b)Turnover-linked Incentives: }}Large, Mega and Ultra-mega industries are eligible to get Turnover-linked Incentives based on net sales turnover for 10 years.\\\\
     \\\\
-    \\item \\textbf{{(c)SGST reimbursement: }}Kindly note that you can avail SGST reimbursement 75\\% of the SGST paid for 7 years and 10 years for MSME and Large, Mega, Ultra mega enterprises respectively.
-    \\\\
+    \\item \\textbf{{(c)SGST reimbursement: }}Kindly note that you can avail SGST reimbursement 75\\% of the SGST paid for 7 years and 10 years for MSME and Large, Mega, Ultra mega enterprises respectively. \\\\
     \\item SGST reimbursement calculation (will be strictly available on SGST paid from cash ledger as per GSTR9 filed annually ) \\\\
 \\\\
-   
+\\end{{itemize}}
+
 \\section*{{Costing Table}}
 
-    \\begin{{longtable}}{{|p{{3cm}}|p{{4cm}}|p{{4cm}}|p{{4cm}}|}}
-    \\hline
-    \\textbf{{Subsidy head}} & \\textbf{{Total subsidy}} & \\textbf{{No. of years}} & \\textbf{{Assumption}} \\\\
-    \\hline
-    Capital Investment Subsidy & Rs. {result['capital_investment_subsidy']} & Disbursed over 10 years  & One-time post production \\\\
-    \\hline
-    Turnover-linked Incentives & Rs. {result['turnover_linked_incentive']} & 10 years & Disbursed annually \\\\
-    \\hline
-    SGST reimbursement & Rs. {result['sgst_reimbursement']} & Disbursed equally over 7 years(10 years for MSMEs) & Paid from cash ledger \\\\
-    \\hline
-    \\end{{longtable}}
-    
+\\begin{{longtable}}{{|p{{3cm}}|p{{4cm}}|p{{4cm}}|p{{4cm}}|}}
+\\hline
+\\textbf{{Subsidy head}} & \\textbf{{Total subsidy}} & \\textbf{{No. of years}} & \\textbf{{Assumption}} \\\\
+\\hline
+Capital Investment Subsidy & Rs. {result['capital_investment_subsidy']} & Disbursed over 10 years  & One-time post production \\\\
+\\hline
+Turnover-linked Incentives & Rs. {result['turnover_linked_incentive']} & 10 years & Disbursed annually \\\\
+\\hline
+SGST reimbursement & Rs. {result['sgst_reimbursement']} & Disbursed equally over 7 years(10 years for MSMEs) & Paid from cash ledger \\\\
+\\hline
+\\end{{longtable}}
+
 \\item \\textbf{{2.Interest Subvention(applicable only when a term loan is availed for the project):}} In rajasthan interest subsidy depends on term loan amount. \\\\
 \\\\
 \\begin{{longtable}}{{|p{{4cm}}|p{{3cm}}|}}
 \\hline
-\\textbf{{Loan amount(in Cr)}} & \\textbf{{Interest rate}}
+\\textbf{{Loan amount(in Cr)}} & \\textbf{{Interest rate}} \\\\
 \\hline
 Upto 5 Cr & 6\\% \\\\
 \\hline
@@ -76,7 +86,7 @@ Rs.5 - 10 Cr & 4\\% \\\\
 Rs.10 - 15 Cr & 3\\% \\\\
 \\hline
 \\end{{longtable}}
- 
+
 Additional (0.5–2\\%) for ODOP/SC/ST/women/backward areas \\\\
 
 \\begin{{longtable}}{{|p{{3cm}}|p{{4cm}}|p{{3cm}}|p{{4cm}}|}}
@@ -100,6 +110,7 @@ Interest subsidy & Rs. {result['interest_subsidy']} & Disbursed over 7 years & P
 \\item \\textbf{{Grant- }}80\\% of project cost(Max 10 Cr) for CFCs in MSME Clusters \\\\
         90\\% for SC/ST/Women owned ODOP Clusters
 \\item \\textbf{{Eligible Infrastructure: }}Testing labs, packaging units, training centers, recycling plants
+\\end{{itemize}} 
 
 \\section*{{Estimated Date of receipt: }}  \\\\
 There will be a sanction provided for each of the subsidy 
@@ -111,7 +122,6 @@ In the case of SGST reimbursement, the company needs to file for the same every
 year post filing of annual GST return i.e. GSTR9 after which the SGST reimbursement 
 is made ranging from 3 months to 6 months from the date of filing SGST 
 reimbursement application. 
-\\end{{itemize}}
 
 \\section*{{How will SCPL ensure the subsidy gets into your bank account? }}
 \\item SCPL will work with the client to ensure that the last rupee of subsidy is received in your 
@@ -141,9 +151,21 @@ policy and non-cooperation by client
 
 \\end{{document}}
 """
-    with open("Subsidy_report_Rajasthan.tex", "w", encoding="utf-8") as f:
+
+    with open(tex_path, "w", encoding="utf-8") as f:
         f.write(tex_content)
 
-    # Compile to PDF
-    os.system("pdflatex -interaction=nonstopmode Subsidy_report_Rajasthan.tex")
-    return "Subsidy_report_Rajasthan.pdf"
+    result = subprocess.run(
+        ["pdflatex", "-interaction=nonstopmode", "-output-directory", output_dir, tex_path],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True
+    )
+
+    if result.returncode != 0:
+        log_file = os.path.join(output_dir, "pdflatex_error.log")
+        with open(log_file, "w") as f:
+            f.write("STDOUT:\n" + result.stdout + "\n\nSTDERR:\n" + result.stderr)
+        raise Exception(f"PDF generation failed. Details saved to {log_file}")
+
+    return pdf_path
