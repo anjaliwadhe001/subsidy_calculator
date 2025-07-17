@@ -14,13 +14,22 @@ export function renderForm(container) {
     </div>
 
     <div class="form-group">
-      <label for="plantMachinery">Plant & Machinery Investment:</label>
+      <label for="plantMachinery">Plant and Machinery Investment:</label>
       <input type="number" id="plantMachinery" name="Plant and Machinery Investment" required>
     </div>
 
     <div class="form-group">
-      <label for="buildingCivil">Building & Civil Work Investment:</label>
+      <label for="buildingCivil">Building and Civil Work Investment:</label>
       <input type="number" id="buildingCivil" name="Building and Civil Work Investment" required>
+    </div>
+
+    <div class="form-group">
+      <label for="landOwned">Is land owned by legal entity?</label>
+      <select id="landOwned" name="Land Owned By Legal Entity?" required>
+        <option value="">Select</option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+      </select>
     </div>
 
     <div class="form-group">
@@ -29,8 +38,17 @@ export function renderForm(container) {
     </div>
 
     <div class="form-group">
-      <label for="netsgstpaidcashLedger">Net SGST Cash Ledger:</label>
+      <label for="netsgstpaidcashLedger">Net SGST Paid Cash Ledger:</label>
       <input type="number" id="netsgstpaidcashLedger" name="Net SGST Paid Cash Ledger" required>
     </div>
   `;
+  const landOwned = container.querySelector("#landOwned");
+  const landCostGroup = container.querySelector("#landCostGroup");
+  const landCostInput = landCostGroup.querySelector("input");
+
+  landOwned.addEventListener("change", () => {
+    const showLandCost = landOwned.value === "Yes";
+    landCostGroup.classList.toggle("hidden", !showLandCost);
+    landCostInput.required = showLandCost;
+  });
 }

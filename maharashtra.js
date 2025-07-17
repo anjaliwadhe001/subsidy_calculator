@@ -52,31 +52,23 @@ export function renderForm(container) {
       </select>
     </div>
 
-    <div class="form-group hidden" id="interestRateGroup">
-      <label for="interestRate">Interest Rate (%):</label>
-      <input type="number" id="interestRate" name="Interest Rate">
-    </div>
-
     <div class="form-group hidden" id="termloanAmount">
       <label for="termloanAmount">Term Loan Amount:</label>
       <input type="number" id="termloanAmountInput" name="Term Loan Amount">
     </div>
 
     <div class="form-group">
-      <label for="netTurnover">Net Turnover:</label>
-      <input type="number" id="netTurnover" name="Net Turnover" required>
+      <label for="netsgstpaidcashLedger">Net SGST Paid Cash Ledger:</label>
+      <input type="number" id="netsgstpaidcashLedger" name="Net SGST Paid Cash Ledger" required>
     </div>
   `;
 
   const termLoan = container.querySelector("#termLoan");
-  const interestRateGroup = container.querySelector("#interestRateGroup");
   const termloanAmount = container.querySelector("#termloanAmount");
 
   termLoan.addEventListener("change", () => {
     const isYes = termLoan.value === "Yes";
-    interestRateGroup.classList.toggle("hidden", !isYes);
-    interestRateGroup.querySelector("input").required = isYes;
-
+  
     termloanAmount.classList.toggle("hidden", !isYes);
     termloanAmount.querySelector("input").required = isYes;
   });

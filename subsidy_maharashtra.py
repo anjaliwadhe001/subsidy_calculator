@@ -64,26 +64,13 @@ def calculate_subsidy(zone, plant_machinery, building_civil_work, land_cost,
     }    
 
 def process_maharashtra(data):
-    try:
-        required_fields = [
-            "Subdistrict",
-            "Plant and Machinery Investment",
-            "Building and Civil Work Investment",
-            "Land Cost",
-            "Term Loan Amount",
-            "Net SGST Paid Cash Ledger"
-        ]
-
-        missing = [field for field in required_fields if field not in data]
-        if missing:
-            return {"error": f"Missing required fields: {', '.join(missing)}"}
-        
+    try:        
         # Extract values
         subdistrict = data["Subdistrict"].strip().lower()
         plant_machinery = float(data["Plant and Machinery Investment"])
         building_civil_work = float(data["Building and Civil Work Investment"])
-        land_cost = float(data.get(["Land Cost"],0))
-        term_loan_amount = float(data.get(["Term Loan Amount"],0))
+        land_cost = float(data.get("Land Cost",0))
+        term_loan_amount = float(data.get("Term Loan Amount",0))
         net_sgst_paid_cash_ledger = float(data["Net SGST Paid Cash Ledger"])
 
         # Zone lookup
