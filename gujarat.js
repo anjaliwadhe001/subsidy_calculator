@@ -63,9 +63,10 @@ export function renderForm(container) {
     </div>
 
     <div class="form-group">
-      <label for="netTurnover">Net Turnover:</label>
-      <input type="number" id="netTurnover" name="Net Turnover" required>
+      <label for="netsgstpaidcashLedger">Net SGST Paid Cash Ledger:</label>
+      <input type="number" id="netsgstpaidcashLedger" name="Net SGST Paid Cash Ledger" required>
     </div>
+    
   `;
 
   const termLoan = container.querySelector("#termLoan");
