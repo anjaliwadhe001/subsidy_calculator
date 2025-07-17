@@ -31,7 +31,7 @@ export function renderForm(container) {
 
     <div class="form-group">
       <label for="industryType">Industry Type:</label>
-      <select id="industryType" id="industryType" name="Industry Type" required>
+      <select id="industryType" name="Industry Type" required>
       <option value="">Select</option>
       <option value="Plastic Alternatives">Plastic Alternatives</option>
       <option value="Agriculture processing">Agriculture processing</option>
