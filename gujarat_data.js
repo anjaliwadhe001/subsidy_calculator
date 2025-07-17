@@ -1,4 +1,4 @@
-export const karnatakaData = {
+export const gujaratData = {
   "Ahmedabad": ["Ahmedabad City", "Bavla", "Daskroi", "Detroj-Rampura", "Dhandhuka", "Dholera", "Dholka", "Mandal", "Sanand", "Viramgam"],
   "Amreli": ["Amreli", "Bagasara", "Rajula", "jafrabad"],
   "Anand": ["Anand", "Borsad\nPetlad", "Tarapur", "Umreth\nKhambhat"],
