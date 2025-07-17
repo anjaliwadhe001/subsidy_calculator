@@ -103,9 +103,9 @@ def process_tamilnadu(data):
         enterprise_size = data["Enterprise Size"]
         plant_machinery = float(data["Plant and Machinery Investment"])
         building_civil_work = float(data["Building and Civil Work Investment"])
-        land_cost = float(data.get(["Land Cost"],0))
-        term_loan_amount = float(data.get(["Term Loan Amount"],0))
-        net_sgst_paid_cash_ledger = float(data.get(["Net SGST Paid Cash Ledger"],0))
+        land_cost = float(data.get("Land Cost",0))
+        term_loan_amount = float(data.get("Term Loan Amount",0))
+        net_sgst_paid_cash_ledger = float(data.get("Net SGST Paid Cash Ledger",0))
 
         #Zone 
         zone_row = df[df['District'].str.lower() == district]
