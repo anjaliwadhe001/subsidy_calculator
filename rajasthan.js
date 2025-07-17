@@ -20,19 +20,6 @@ export function renderForm(container) {
     </div>
 
     <div class="form-group">
-      <label for="enterpriseSize">Enterprise Size:</label>
-      <select id="enterpriseSize" name="Enterprise Size" required>
-        <option value="">Select</option>
-        <option value="Micro">Micro</option>
-        <option value="Small">Small</option>
-        <option value="Medium">Medium</option>
-        <option value="Large">Large</option>
-        <option value="Mega">Mega</option>
-        <option value="Ultra Mega">Ultra Mega</option>
-      </select>
-    </div>
-
-    <div class="form-group">
       <label for="plantMachinery">Plant & Machinery Investment:</label>
       <input type="number" id="plantMachinery" name="Plant and Machinery Investment" required>
     </div>
@@ -73,8 +60,8 @@ export function renderForm(container) {
     </div>
 
     <div class="form-group">
-      <label for="netsgstpaidcashLedger">Net SGST Cash Ledger:</label>
-      <input type="number" id="netsgstpaidcashLedger" name="Net SGST Cash Ledger" required>
+      <label for="netsgstpaidcashLedger">Net SGST Paid Cash Ledger:</label>
+      <input type="number" id="netsgstpaidcashLedger" name="Net SGST Paid Cash Ledger" required>
     </div>
   `;
 
@@ -83,7 +70,6 @@ export function renderForm(container) {
   const termLoan = container.querySelector("#termLoan");
   const termloanAmount = container.querySelector("#termloanAmount");
   const industryType = container.querySelector("#industryType");
-  const enterpriseSize = container.querySelector("#enterpriseSize");
   const turnoverField = container.querySelector("#turnoverField");
 
   districtSelect.addEventListener("change", () => {
@@ -100,15 +86,4 @@ export function renderForm(container) {
     termloanAmount.querySelector("input").required = isYes;
   });
 
-  function updateTurnoverVisibility() {
-    const type = industryType.value;
-    const size = enterpriseSize.value;
-    const needsTurnover = type === "Other" && ["Large", "Mega", "Ultra Mega"].includes(size);
-
-    turnoverField.classList.toggle("hidden", !needsTurnover);
-    turnoverField.querySelector("input").required = needsTurnover;
-  }
-
-  industryType.addEventListener("change", updateTurnoverVisibility);
-  enterpriseSize.addEventListener("change", updateTurnoverVisibility);
 }
