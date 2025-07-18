@@ -69,8 +69,6 @@ export function renderForm(container) {
   const subdistrictSelect = container.querySelector("#rajasthanSubdistrict");
   const termLoan = container.querySelector("#termLoan");
   const termloanAmount = container.querySelector("#termloanAmount");
-  const industryType = container.querySelector("#industryType");
-  const turnoverField = container.querySelector("#turnoverField");
 
   districtSelect.addEventListener("change", () => {
     const selectedDistrict = districtSelect.value;
