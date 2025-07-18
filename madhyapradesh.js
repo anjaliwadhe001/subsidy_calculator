@@ -1,6 +1,6 @@
 export function renderForm(container) {
   container.innerHTML = `
-    <h3>Madhya Pradesh Details</h3>
+    <h3>Fill your Details here</h3>
     <div class="form-group">
       <label for="mpDistrict">District:</label>
       <select name="District" id="District">
@@ -36,11 +36,7 @@ export function renderForm(container) {
             <option value="Jhabua">Jhabua</option>
       </select>
     </div>
-
-    <label>Industry Type:
-      <input type="text" name="Industry Type" required>
-    </label><br>
-
+    
     <label>Plant and Machinery Investment:
       <input type="number" name="Plant and Machinery Investment" required>
     </label><br>
@@ -68,7 +64,6 @@ export function renderForm(container) {
     </div>
   `;
 
-  // Add event listener AFTER elements are injected
   const termLoanSelect = container.querySelector("#termLoanSelectMP");
   const loanFields = container.querySelector("#loanFieldsMP");
 

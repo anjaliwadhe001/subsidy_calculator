@@ -1,6 +1,6 @@
 export function renderForm(container) {
   container.innerHTML = `
-    <h3>Punjab Details</h3>
+    <h3>Fill your Details here</h3>
     
     <div class="form-group">
       <label for="punjabDistrict">District:</label>

@@ -2,7 +2,7 @@ import { haryanaData } from './haryana_data.js';
 
 export function renderForm(container) {
   container.innerHTML = `
-    <h3>Haryana Details</h3>
+    <h3>Fill your Details here </h3>
 
     <div class="form-group">
       <label for="haryanaDistrict">District:</label>

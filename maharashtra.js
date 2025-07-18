@@ -2,7 +2,7 @@ import { maharashtraData } from './maharashtra_data.js';
 
 export function renderForm(container) {
   container.innerHTML = `
-    <h3>maharashtra Details</h3>
+    <h3>Fill your Details here</h3>
 
     <div class="form-group">
       <label for="maharashtraDistrict">District:</label>

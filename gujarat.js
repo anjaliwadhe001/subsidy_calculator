@@ -2,7 +2,7 @@ import { gujaratData } from './gujarat_data.js';
 
 export function renderForm(container) {
   container.innerHTML = `
-    <h3>gujarat Details</h3>
+    <h3>Fill your details here</h3>
 
     <div class="form-group">
       <label for="gujaratDistrict">District:</label>
@@ -68,7 +68,7 @@ export function renderForm(container) {
     </div>
     
   `;
-
+  //Handles term logic
   const termLoan = container.querySelector("#termLoan");
   const interestRateGroup = container.querySelector("#interestRateGroup");
   const termloanAmount = container.querySelector("#termloanAmount");
@@ -82,6 +82,8 @@ export function renderForm(container) {
     termloanAmount.querySelector("input").required = isYes;
   });
 
+  //District and subdistrict selection from database
+
   const districtSelect = container.querySelector("#gujaratDistrict");
   const subdistrictSelect = container.querySelector("#gujaratSubdistrict");
 
@@ -92,6 +94,8 @@ export function renderForm(container) {
     subdistrictSelect.innerHTML = `<option value="">Select Subdistrict</option>` +
       subdistricts.map(sd => `<option value="${sd.trim()}">${sd.trim()}</option>`).join("");
   });
+
+  //land cost logic
 
   const landOwned = container.querySelector("#landOwned");
   const landCostGroup = container.querySelector("#landCostGroup");

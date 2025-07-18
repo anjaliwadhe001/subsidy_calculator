@@ -2,7 +2,7 @@ import { rajasthanData } from './rajasthan_data.js';
 
 export function renderForm(container) {
   container.innerHTML = `
-    <h3>Rajasthan Details</h3>
+    <h3>Fill your Details here</h3>
 
     <div class="form-group">
       <label for="rajasthanDistrict">District:</label>
