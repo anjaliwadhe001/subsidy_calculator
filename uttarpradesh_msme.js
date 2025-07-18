@@ -2,8 +2,15 @@ export function renderForm(container) {
   container.innerHTML = `
     <h3>Uttar Pradesh Details</h3>
     <div class="form-group">
-      <label for="upmsmeDistrict">District:</label>
-      <input type="text" id="upmsmeDistrict" name="District" required>
+      <label for="upDistrict">District:</label>
+      <select name="District" id="District">
+        <option value="Gautam Buddh Nagar">Gautam Buddh Nagar</option>
+        <option value="Ghaziabad">Ghaziabad</option>
+        <option value="Madhyanchal">Madhyanchal</option>
+        <option value="Paschimanchal">Paschimanchal</option>
+        <option value="Bundelkhand">Bundelkhand</option>
+        <option value="Poorvanchal">Poorvanchal</option>
+      </select>
     </div>
 
     <div class="form-group">
@@ -17,8 +24,17 @@ export function renderForm(container) {
     </div>
 
     <div class="form-group">
+      <label for="landOwned">Is land owned by legal entity?</label>
+      <select id="landOwned" name="Land Owned By Legal Entity?" required>
+        <option value="">Select</option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+      </select>
+    </div>
+
+    <div class="form-group hidden" id="landCostGroup">
       <label for="landCost">Land Cost:</label>
-      <input type="number" id="landCost" name="Land Cost" required>
+      <input type="number" id="landCost" name="Land Cost">
     </div>
 
     <div class="form-group">
@@ -37,27 +53,32 @@ export function renderForm(container) {
 
     <div class="form-group hidden" id="termloanAmount">
       <label for="termloanAmount">Term Loan Amount:</label>
-      <input type="number" id="termloanAmount" name="termloanAmount">
+      <input type="number" id="termloanAmountInput" name="Term Loan Amount">
     </div>
-  `;
 
-  const termLoan = container.querySelector("#termLoan");
+`;
+
+ const termLoan = container.querySelector("#termLoan");
   const interestRateGroup = container.querySelector("#interestRateGroup");
   const termloanAmount = container.querySelector("#termloanAmount");
 
   termLoan.addEventListener("change", () => {
-    if (termLoan.value === "Yes") {
-      interestRateGroup.classList.remove("hidden");
-      interestRateGroup.querySelector("input").required = true;
-      
-      termloanAmount.classList.remove("hidden");
-      document.getElementById("TermLoanAmount").setAttribute("required", "true");
-    } else {
-      interestRateGroup.classList.add("hidden");
-      interestRateGroup.querySelector("input").required = false;
+    const isYes = termLoan.value === "Yes";
+    interestRateGroup.classList.toggle("hidden", !isYes);
+    interestRateGroup.querySelector("input").required = isYes;
 
-      termloanAmount.classList.add("hidden");
-      document.getElementById("TermLoanAmount").removeAttribute("required");
-    }
+    termloanAmount.classList.toggle("hidden", !isYes);
+    termloanAmount.querySelector("input").required = isYes;
   });
+
+  const landOwned = container.querySelector("#landOwned");
+  const landCostGroup = container.querySelector("#landCostGroup");
+  const landCostInput = landCostGroup.querySelector("input");
+
+  landOwned.addEventListener("change", () => {
+    const showLandCost = landOwned.value === "Yes";
+    landCostGroup.classList.toggle("hidden", !showLandCost);
+    landCostInput.required = showLandCost;
+  });
+
 }

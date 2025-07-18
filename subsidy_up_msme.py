@@ -1,6 +1,6 @@
 #Subsidies apply only to investments made during the policy period (2022–2027). 
 #Applicable to Micro, Small, Medium Industrial units
-#User Interest rate is a new input 
+
 import pandas as pd
 from report_up_msme import generate_report_up_msme
 
@@ -56,12 +56,12 @@ def calculate_subsidy(zone, enterprise_size, plant_machinery, building_civil_wor
 
     # Interest Subsidy
     if enterprise_size in ["Micro"]:
-        annual_interest = ( interest_rate * term_loan_amount) #to be paid by customer
+        annual_interest = ( interest_rate * term_loan_amount) # paid by customer
         interest_subsidy = min((annual_interest*0.50), 2500000) * 5 #applicable for 5 years 
     else:
         interest_subsidy=0
 
-    #SGST reimbursement(Not applicable for MSME)
+    # SGST reimbursement(Not applicable for MSME)
 
     # Total subsidy 
     total_subsidy = capital_subsidy + stamp_duty_subsidy + interest_subsidy
@@ -82,9 +82,9 @@ def process_up_msme(data):
         enterprise_size = data["Enterprise Size"]
         plant_machinery = float(data["Plant and Machinery Investment"])
         building_civil_work = float(data["Building and Civil Work Investment"])
-        land_cost = float(data.get(["Land Cost"],0))
-        interest_rate = float(data.get(["Interest rate(%)"],0))
-        term_loan_amount = float(data.get(["Term Loan Amount"],0))
+        land_cost = float(data.get("Land Cost",0))
+        interest_rate = float(data.get("Interest rate(%)",0))
+        term_loan_amount = float(data.get("Term Loan Amount",0))
 
         #Zone 
         zone_row = df[df['District'].str.lower() == district]

@@ -42,6 +42,7 @@ export function renderForm(container) {
       <input type="number" id="netsgstpaidcashLedger" name="Net SGST Paid Cash Ledger" required>
     </div>
   `;
+  
   const landOwned = container.querySelector("#landOwned");
   const landCostGroup = container.querySelector("#landCostGroup");
   const landCostInput = landCostGroup.querySelector("input");
