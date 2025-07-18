@@ -17,10 +17,10 @@ def calculate_subsidy(enterprise_size, plant_machinery, building_civil_work, lan
 
     # Capital Subsidy 
     if enterprise_size in ["Micro", "Small"]:
-        capital_subsidy = min(0.25 * capital_investment, 2500000) #Ask about eligibility years for this
+        capital_subsidy = min(0.25 * capital_investment, 2500000) 
     else: 
         capital_subsidy = 0
-    print("A", capital_subsidy)
+  
     # Stamp Duty Subsidy 
     # 100% exemption for MSMEs 
     if enterprise_size in ["Micro", "Small", "Medium", "Large"]:
@@ -36,7 +36,7 @@ def calculate_subsidy(enterprise_size, plant_machinery, building_civil_work, lan
         interest_subsidy = 0
 
     # SGST Reimbursement (Eligibility 5 years )
-    if enterprise_size == "Startup":  #Adjust this according to html form 
+    if enterprise_size == "Startup":  
         sgst_reimbursement = net_sgst_paid_cash_ledger * 5
     elif enterprise_size == "Small":
         sgst_reimbursement = min(0.60 * net_sgst_paid_cash_ledger, 0.60 * capital_investment) * 5
@@ -62,28 +62,12 @@ def calculate_subsidy(enterprise_size, plant_machinery, building_civil_work, lan
 
 def process_punjab(data):
     try:
-        required_fields = [
-            "Enterprise Size",
-            "Plant and Machinery Investment",
-            "Building and Civil Work Investment",
-            "Land Cost",
-            "Term Loan Amount",
-            "Net SGST Paid Cash Ledger"
-        ]
-        print("Feilds: ", required_fields)
-
-        missing_fields = [field for field in required_fields if field not in data or data[field] in ["", None]]
-
-        if missing_fields:
-            return {
-                "error": f"Missing required fields: {', '.join(missing_fields)}"
-            }
         # Extract values
         enterprise_size = data["Enterprise Size"]
         plant_machinery = float(data["Plant and Machinery Investment"])
         building_civil_work = float(data["Building and Civil Work Investment"])
-        land_cost = float(data.get(["Land Cost"],0))
-        term_loan_amount = float(data.get(["Term Loan Amount"],0))
+        land_cost = float(data.get("Land Cost",0))
+        term_loan_amount = float(data.get("Term Loan Amount",0))
         net_sgst_paid_cash_ledger = float(data["Net SGST Paid Cash Ledger"])
 
         # Perform calculations
@@ -98,7 +82,7 @@ def process_punjab(data):
         
         # Generate report
         pdf_path = generate_report_punjab(data, result)
-        print("subsidy_result", result)
+        
         return {
             "subsidy_result": result,
             "report_path": pdf_path
