@@ -84,17 +84,15 @@ form.addEventListener("submit", async (e) => {
     const result = await response.json();
     console.log("Result from API:", result);
 
-    if (result.report_path) {
-      const downloadUrl = result.report_path.startsWith("/")
-        ? result.report_path
-        : `/download_pdf/${result.report_path.split("/").pop()}`;
-      statusDiv.innerHTML = `
-        ✅ Report generated.<br>
-        <a href="${downloadUrl}" target="_blank" download>Click to download PDF</a>`;
-    } else {
-      statusDiv.innerHTML = `❌ Error: ${result.error || "No report_path returned."}`;
-      console.error("No report_path received. Full result:", result);
-    }
+    if (result.download_link) {
+  const downloadUrl = `https://subsidy-calculator-1.onrender.com${result.download_link}`;
+  statusDiv.innerHTML = `
+    ✅ Report generated.<br>
+    <a href="${downloadUrl}" target="_blank" download>Click to download PDF</a>`;
+} else {
+  statusDiv.innerHTML = `❌ Error: ${result.error || "No report link returned."}`;
+}
+
   } catch (err) {
     console.error("Fetch error:", err);
     statusDiv.innerHTML = "❌ Something went wrong. See console.";
