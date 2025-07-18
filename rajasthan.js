@@ -40,7 +40,7 @@ export function renderForm(container) {
       </select>
     </div>
 
-    <div class="form-group hidden" id="turnoverField">
+    <div class="form-group" id="turnoverField">
       <label for="netTurnover">Net Turnover:</label>
       <input type="number" id="netTurnover" name="Net Turnover">
     </div>
