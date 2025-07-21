@@ -4,7 +4,7 @@ import subprocess
 import os
 
 def generate_report_rajasthan(user_data, result, zone):
-    output_dir = "reports"
+    output_dir = "/tmp/reports"
     os.makedirs(output_dir, exist_ok=True)
 
     safe_name = user_data.get("Name", "user").replace(" ", "_")
@@ -154,18 +154,30 @@ policy and non-cooperation by client
 
     with open(tex_path, "w", encoding="utf-8") as f:
         f.write(tex_content)
+    
+    print("Running pdflatex on:", tex_path)
 
-    result = subprocess.run(
-        ["pdflatex", "-interaction=nonstopmode", "-output-directory", output_dir, tex_path],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        text=True
-    )
+    try:
+        result = subprocess.run(
+            ["pdflatex", "-interaction=nonstopmode", "-output-directory", output_dir, tex_path],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True
+        )
 
-    if result.returncode != 0:
-        log_file = os.path.join(output_dir, "pdflatex_error.log")
-        with open(log_file, "w") as f:
-            f.write("STDOUT:\n" + result.stdout + "\n\nSTDERR:\n" + result.stderr)
-        raise Exception(f"PDF generation failed. Details saved to {log_file}")
+        if result.returncode != 0:
+            log_file = os.path.join(output_dir, "pdflatex_error.log")
+            with open(log_file, "w", encoding="utf-8") as f:
+                f.write("STDOUT:\n" + result.stdout + "\n\nSTDERR:\n" + result.stderr)
+            print("PDF generation error written to:", log_file)
+            raise Exception(f"PDF generation failed. Details saved to {log_file}")
+
+    except FileNotFoundError:
+        raise Exception("pdflatex command not found. Is LaTeX installed in your container?")
+
+    except Exception as e:
+        print("Unexpected error while generating PDF:", str(e))
+        traceback.print_exc()
+        raise
 
     return pdf_path
