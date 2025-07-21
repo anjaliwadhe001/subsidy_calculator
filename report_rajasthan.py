@@ -50,16 +50,13 @@ Subsidy4India has identified various subsidies available for your organisation f
 \\end{{itemize}}
 
 \\section*{{Subsidy Breakdown}} 
-\\begin{{itemize}}[leftmargin=1.5em]
-\\textbf{{1.Asset Creation Incentives (Choose One)}} \\\\
 
-    \\item \\textbf{{(a)Capital investment subsidy (One-time):}} According to MSME Policy 2024, Plastic alternative, Agricultural and Food processing industries will get subsidy 50\\% of their capital investment with the cap of Rs. 40 lakhs and Rs. 1.5 Crore respectively. \\\\
-    \\\\
-    \\item \\textbf{{(b)Turnover-linked Incentives: }}Large, Mega and Ultra-mega industries are eligible to get Turnover-linked Incentives based on net sales turnover for 10 years.\\\\
-    \\\\
-    \\item \\textbf{{(c)SGST reimbursement: }}Kindly note that you can avail SGST reimbursement 75\\% of the SGST paid for 7 years and 10 years for MSME and Large, Mega, Ultra mega enterprises respectively. \\\\
-    \\item SGST reimbursement calculation (will be strictly available on SGST paid from cash ledger as per GSTR9 filed annually ) \\\\
-\\\\
+\\textbf{{1.Asset Creation Incentives (Choose One)}} \\\\
+\\begin{{itemize}}[leftmargin=1.5em]
+    \\item \\textbf{{(a)Capital investment subsidy (One-time):}} According to MSME Policy 2024, Plastic alternative, Agricultural and Food processing industries will get subsidy 50\\% of their capital investment with the cap of Rs. 40 lakhs and Rs. 1.5 Crore respectively. 
+    \\item \\textbf{{(b)Turnover-linked Incentives: }}Large, Mega and Ultra-mega industries are eligible to get Turnover-linked Incentives based on net sales turnover for 10 years.
+    \\item \\textbf{{(c)SGST reimbursement: }}Kindly note that you can avail SGST reimbursement 75\\% of the SGST paid for 7 years and 10 years for MSME and Large, Mega, Ultra mega enterprises respectively.
+    \\item SGST reimbursement calculation (will be strictly available on SGST paid from cash ledger as per GSTR9 filed annually ) 
 \\end{{itemize}}
 
 \\section*{{Costing Table}}
