@@ -3,8 +3,21 @@
 # report_generator file
 import pandas as pd
 import os
+import traceback
+import subprocess
 
 def generate_report_gujarat(user_data, result, zone):
+
+    output_dir = "reports"
+    os.makedirs(output_dir, exist_ok=True)
+
+    safe_name = user_data.get("Name", "user").replace(" ", "_")
+    filename = f"{safe_name}_Subsidy_Report.pdf"
+    tex_filename = f"{safe_name}_Subsidy_Report.tex"
+
+    tex_path = os.path.join(output_dir, tex_filename)
+    pdf_path = os.path.join(output_dir, filename)
+
     interest_eligibility_years = result.get('interest_eligibility_years', '')
     if interest_eligibility_years:
         interest_eligibility_years = f"{interest_eligibility_years} years"
@@ -45,8 +58,10 @@ Offices in New Delhi \\& New York\\\\
 \\textbf{{Date: {pd.Timestamp.now().strftime('%Y-%m-%d')}}}
 
 \\vspace{{1em}}
-\\item {user_data['Organization Name']} \\\\
-\\item {user_data['Subdistrict']}, {user_data['District']}, {user_data['State']} \\\\
+\\begin{{itemize}}
+    \item {user_data['Organization Name']} \\
+    \item {user_data['Subdistrict']}, {user_data['District']}, {user_data['State']} \\
+\\end{{itemize}}
 \\textbf{{Attn.:}} {user_data['Name']}
 
 \\section*{{Overview}}
@@ -59,17 +74,15 @@ Subsidy4India has identified various subsidies available for your organisation f
 \\end{{itemize}}
 
 \\section*{{Subsidy Breakdown}} 
-\\begin{{itemize}}[leftmargin=1.5em]
+
 \\item \\textbf{{Asset Creation Incentives}} \\\\
-
-    \\textbf{{(a)Capital Investment Subsidy (One-time): }}According to MSME Policy 2024, Plastic alternative, Agricultural and Food processing industries will get subsidy 50\\% of their capital investment with the cap of Rs. 40 lakhs and Rs. 1.5 Crore respectively. \\\\
-    \\\\
-    \\textbf{{(b)SGST reimbursement: }}Kindly note that you can avail SGST reimbursement of {{{sgst_rate}}} on the SGST paid for {{{sgst_eligibility_years}}} with the annual cap of {{{sgst_max_rate}}} of Fixed Capital Investment.\\\\
-    \\\\
-    \\textbf{{(c)Stamp Duty Subsidy (One-time): }}Under the Aatma nirbhar Gujarat Scheme, the government provides a \\textbf{{100\\% reimbursement of stamp duty and registration charges}} paid to the Government of Gujarat for the purchase and/or lease of land meant for eligible industrial projects. \\\\
-    \\\\
+\\begin{{itemize}}[leftmargin=1.5em]
+    \\textbf{{(a)Capital Investment Subsidy (One-time): }}According to MSME Policy 2024, Plastic alternative, Agricultural and Food processing industries will get subsidy 50\\% of their capital investment with the cap of Rs. 40 lakhs and Rs. 1.5 Crore respectively. 
+    \\textbf{{(b)SGST reimbursement: }}Kindly note that you can avail SGST reimbursement of {{{sgst_rate}}} on the SGST paid for {{{sgst_eligibility_years}}} with the annual cap of {{{sgst_max_rate}}} of Fixed Capital Investment.
+    \\textbf{{(c)Stamp Duty Subsidy (One-time): }}Under the Aatma nirbhar Gujarat Scheme, the government provides a \\textbf{{100\\% reimbursement of stamp duty and registration charges}} paid to the Government of Gujarat for the purchase and/or lease of land meant for eligible industrial projects.
     \\textbf{{(d)Interest Subsidy(applicable only when a term loan is availed for the project): }}Interest Subsidy is available at {{{interest_rate}}} of term loan amount for {{{interest_eligibility_years}}}. \\\\
-
+\\end{{itemize}}
+    
 \\section*{{Costing Table}}
     \\begin{{longtable}}{{|p{{4cm}}|p{{4cm}}|p{{4cm}}|p{{4cm}}|}}
     \\hline
@@ -102,39 +115,71 @@ reimbursement application.
 \\end{{itemize}}
 
 \\section*{{How will SCPL ensure the subsidy gets into your bank account? }}
-
-\\item SCPL will work with the client to ensure that the last rupee of subsidy is received in your 
-bank account and the contract is valid till we achieve the same  
-\\item If there is a delay in receipt of the subsidy amount due to operational reasons or budget 
-allocation delay with the respective Govt. Department, SCPL will keep the client informed at 
-every step
+\\begin{{itemize}}
+    \\item SCPL will work with the client to ensure that the last rupee of subsidy is received in your 
+    bank account and the contract is valid till we achieve the same  
+    \\item If there is a delay in receipt of the subsidy amount due to operational reasons or budget 
+    allocation delay with the respective Govt. Department, SCPL will keep the client informed at 
+    every step
+\\end{{itemize}}
 
 \\section*{{Value Added Services }} 
-\\begin{{itemsize}}
+\\begin{{itemize}}
     \\item Preparation of Detailed Project Report (DPR)  
     \\item Market Research to plan your Go To Market Strategy  
     \\item DSIR (R\\&D certification) project for accessing R\\&D funding including grants from Govt. agencies  
     \\item Intellectual Property protection by filing patent, design registration, trademark and copyright in India and global jurisdictions 
-\\end{{itemsize}}
+\\end{{itemize}}
 
 \\section*{{Not sure}} 
-\\item Conduct a referral check by asking to get in touch with our happy customers
+\\begin{{itemize}}
+    \\item Conduct a referral check by asking to get in touch with our happy customers
+\\end{{itemize}}
 
 \\section*{{Disclosure}}
-\\item SCPL (parent company of Subsidy4India) Team has calculated the subsidy based on 
-details provided by the client and the same can vary depending on the capital investment 
-made by the client. exact location of the land where the manufacturing unit is being 
-setup, documents provided for registering the subsidy application and any follow up 
-documents required by the Central or State Government authorities and will not be liable 
-for any reduction in subsidy amount applicable to the client including the client being 
-determined as non-eligible to avail the subsidy due to lack of documentation, change of 
-policy and non-cooperation by client
+\\begin{{itemize}}
+    \\item SCPL (parent company of Subsidy4India) Team has calculated the subsidy based on 
+    details provided by the client and the same can vary depending on the capital investment 
+    made by the client. exact location of the land where the manufacturing unit is being 
+    setup, documents provided for registering the subsidy application and any follow up 
+    documents required by the Central or State Government authorities and will not be liable 
+    for any reduction in subsidy amount applicable to the client including the client being 
+    determined as non-eligible to avail the subsidy due to lack of documentation, change of 
+    policy and non-cooperation by client
+\\end{{itemize}}
 
 \\end{{document}}
 """
     with open("Subsidy_report_gujarat.tex", "w", encoding="utf-8") as f:
         f.write(tex_content)
 
-    # Compile to PDF
-    os.system("pdflatex -interaction=nonstopmode Subsidy_report_gujarat.tex")
-    return "Subsidy_report_gujarat.pdf"
+    print("Running pdflatex on:", tex_path)
+
+    try:
+        result = subprocess.run(
+            ["pdflatex", "-interaction=nonstopmode", "-output-directory", output_dir, tex_path],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True
+        )
+
+        if result.returncode != 0:
+            print("===== PDF GENERATION FAILED =====")
+            print("STDOUT:\n", result.stdout)
+            print("STDERR:\n", result.stderr)
+            print("PDFLaTeX returned non-zero code. Checking if PDF was generated anyway...")
+            if not os.path.exists(pdf_path):
+                raise Exception("PDF generation failed. LaTeX error logged to console.")
+            else:
+                print("PDF was generated despite warnings.")
+
+
+    except FileNotFoundError:
+        raise Exception("pdflatex command not found. Is LaTeX installed in your container?")
+
+    except Exception as e:
+        print("Unexpected error while generating PDF:", str(e))
+        traceback.print_exc()
+        raise
+
+    return pdf_path
