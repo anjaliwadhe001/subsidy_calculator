@@ -150,7 +150,8 @@ reimbursement application.
 
 \\end{{document}}
 """
-    with open("Subsidy_report_gujarat.tex", "w", encoding="utf-8") as f:
+    
+    with open(tex_path, "w", encoding="utf-8") as f:
         f.write(tex_content)
 
     print("Running pdflatex on:", tex_path)
