@@ -5,7 +5,7 @@ import os
 import traceback
 
 def generate_report_rajasthan(user_data, result, zone):
-    output_dir = "/tmp/reports"
+    output_dir = "reports"
     os.makedirs(output_dir, exist_ok=True)
 
     safe_name = user_data.get("Name", "user").replace(" ", "_")
@@ -180,7 +180,11 @@ reimbursement application.
             print("===== PDF GENERATION FAILED =====")
             print("STDOUT:\n", result.stdout)
             print("STDERR:\n", result.stderr)
-            raise Exception("PDF generation failed. LaTeX error logged to console.")
+            print("PDFLaTeX returned non-zero code. Checking if PDF was generated anyway...")
+            if not os.path.exists(pdf_path):
+                raise Exception("PDF generation failed. LaTeX error logged to console.")
+            else:
+                print("PDF was generated despite warnings.")
 
 
     except FileNotFoundError:
