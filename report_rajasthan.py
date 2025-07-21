@@ -2,6 +2,7 @@
 import pandas as pd
 import subprocess
 import os
+import traceback
 
 def generate_report_rajasthan(user_data, result, zone):
     output_dir = "/tmp/reports"
