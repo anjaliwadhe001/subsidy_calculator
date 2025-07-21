@@ -32,9 +32,9 @@ export function renderForm(container) {
       </select>
     </div>
 
-    <div class="form-group">
+    <div class="form-group hidden" id="landCostGroup">
       <label for="landCost">Land Cost:</label>
-      <input type="number" id="landCost" name="Land Cost" required>
+      <input type="number" id="landCost" name="Land Cost">
     </div>
 
     <div class="form-group">
@@ -42,7 +42,7 @@ export function renderForm(container) {
       <input type="number" id="netsgstpaidcashLedger" name="Net SGST Paid Cash Ledger" required>
     </div>
   `;
-  
+
   const landOwned = container.querySelector("#landOwned");
   const landCostGroup = container.querySelector("#landCostGroup");
   const landCostInput = landCostGroup.querySelector("input");
