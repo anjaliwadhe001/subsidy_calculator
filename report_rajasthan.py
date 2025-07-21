@@ -34,8 +34,10 @@ Offices in New Delhi \\& New York\\\\
 \\textbf{{Date: {pd.Timestamp.now().strftime('%Y-%m-%d')}}}
 
 \\vspace{{1em}}
-\\item {user_data['Organization Name']} \\\\
-\\item {user_data['Subdistrict']}, {user_data['District']}, {user_data['State']} \\\\
+\\begin{{itemize}}
+  \item {user_data['Organization Name']} \\
+  \item {user_data['Subdistrict']}, {user_data['District']}, {user_data['State']} \\
+\\end{{itemize}}
 \\textbf{{Attn.:}} {user_data['Name']}
 
 \\section*{{Overview}}
@@ -74,7 +76,9 @@ SGST reimbursement & Rs. {result['sgst_reimbursement']} & Disbursed equally over
 \\hline
 \\end{{longtable}}
 
-\\item \\textbf{{2.Interest Subvention(applicable only when a term loan is availed for the project):}} In rajasthan interest subsidy depends on term loan amount. \\\\
+\\begin{{itemize}}
+    \\item \\textbf{{2.Interest Subvention(applicable only when a term loan is availed for the project):}} In rajasthan interest subsidy depends on term loan amount. \\\\
+\\end{{itemize}}
 \\\\
 \\begin{{longtable}}{{|p{{4cm}}|p{{3cm}}|}}
 \\hline
@@ -98,22 +102,24 @@ Interest subsidy & Rs. {result['interest_subsidy']} & Disbursed over 7 years & P
 
 \\textbf{{Total estimated subsidy available is Rs. {result['total_subsidy']}.}}
 
-\\section*{{Key Subsidy Types & Eligibility Periods}}
-\\item \\textbf{{Employment Booster: }}10–15\\% additional incentive for exceeding employment thresholds
-\\item \\textbf{{Thrust Booster: }}10\\% additional benefits for thrust sectors
-\\item \\textbf{{Anchor Booster: }}20\\% additional benefits for first 3 mega/ultra-mega projects in a sector/region
-\\item \\textbf{{Green Growth Incentives: }}50\\% reimbursement for environmental infrastructure (maximum Rs. 1 Cr for MSMEs)
-\\item \\textbf{{Special Sectors: }}Sunrise sectors (e.g., green hydrogen, semiconductors) get additional “Sunrise Booster” (25\\% extra for first 3 mega/ultra-mega projects)
-\\item \\textbf{{Exemptions: }}100\\% exemption on electricity duty, mandi fee, and land tax for 7 years; 75\\% exemption + 25\\% reimbursement on stamp duty and conversion charges
-\\item \\textbf{{Employment Generation Subsidy: }}50\\% of employer’s EPF/ESI contribution for 7 years for MSMEs
-\\item \\textbf{{Cluster incentives: }}
+\\section*{{Key Subsidy Types \& Eligibility Periods}}
+\\begin{{itemize}}
+    \\item \\textbf{{Employment Booster: }}10–15\\% additional incentive for exceeding employment thresholds
+    \\item \\textbf{{Thrust Booster: }}10\\% additional benefits for thrust sectors
+    \\item \\textbf{{Anchor Booster: }}20\\% additional benefits for first 3 mega/ultra-mega projects in a sector/region
+    \\item \\textbf{{Green Growth Incentives: }}50\\% reimbursement for environmental infrastructure (maximum Rs. 1 Cr for MSMEs)
+    \\item \\textbf{{Special Sectors: }}Sunrise sectors (e.g., green hydrogen, semiconductors) get additional “Sunrise Booster” (25\\% extra for first 3 mega/ultra-mega projects)
+    \\item \\textbf{{Exemptions: }}100\\% exemption on electricity duty, mandi fee, and land tax for 7 years; 75\\% exemption + 25\\% reimbursement on stamp duty and conversion charges
+    \\item \\textbf{{Employment Generation Subsidy: }}50\\% of employer’s EPF/ESI contribution for 7 years for MSMEs
+    \\item \\textbf{{Cluster incentives: }}
+\\end{{itemize}}
 \\begin{{itemize}}[leftmargin=1.5em]
 \\item \\textbf{{Grant- }}80\\% of project cost(Max 10 Cr) for CFCs in MSME Clusters \\\\
         90\\% for SC/ST/Women owned ODOP Clusters
 \\item \\textbf{{Eligible Infrastructure: }}Testing labs, packaging units, training centers, recycling plants
 \\end{{itemize}} 
 
-\\section*{{Estimated Date of receipt: }}  \\\\
+\\section*{{Estimated Date of receipt: }} \\\\
 There will be a sanction provided for each of the subsidy 
 application made which is sanctioned in upto 90 days and then disbursed as per funds 
 availability with the Govt. Department and ranges from 3 months to 6 months from the 
@@ -125,31 +131,38 @@ is made ranging from 3 months to 6 months from the date of filing SGST
 reimbursement application. 
 
 \\section*{{How will SCPL ensure the subsidy gets into your bank account? }}
-\\item SCPL will work with the client to ensure that the last rupee of subsidy is received in your 
-bank account and the contract is valid till we achieve the same  
-\\item If there is a delay in receipt of the subsidy amount due to operational reasons or budget 
-allocation delay with the respective Govt. Department, SCPL will keep the client informed at 
-every step
+\\begin{{itemize}}
+    \\item SCPL will work with the client to ensure that the last rupee of subsidy is received in your 
+    bank account and the contract is valid till we achieve the same  
+    \\item If there is a delay in receipt of the subsidy amount due to operational reasons or budget 
+    allocation delay with the respective Govt. Department, SCPL will keep the client informed at 
+    every step
+\\end{{itemize}}
 
-\\section*{{Value Added Services }} 
-\\item Preparation of Detailed Project Report (DPR)  
-\\item Market Research to plan your Go To Market Strategy  
-\\item DSIR (R\\&D certification) project for accessing R\\&D funding including grants from Govt. agencies  
-\\item Intellectual Property protection by filing patent, design registration, trademark and copyright in India and global jurisdictions 
+\\section*{{Value Added Services }}
+\\begin{{itemize}} 
+    \\item Preparation of Detailed Project Report (DPR)  
+    \\item Market Research to plan your Go To Market Strategy  
+    \\item DSIR (R\\&D certification) project for accessing R\\&D funding including grants from Govt. agencies  
+    \\item Intellectual Property protection by filing patent, design registration, trademark and copyright in India and global jurisdictions 
+\\end{{itemize}}
 
 \\section*{{Not sure}} 
-\\item Conduct a referral check by asking to get in touch with our happy customers
+\\begin{{itemize}} 
+    \\item Conduct a referral check by asking to get in touch with our happy customers
+\\end{{itemize}}
 
 \\section*{{Disclosure}}
-\\item SCPL (parent company of Subsidy4India) Team has calculated the subsidy based on 
-details provided by the client and the same can vary depending on the capital investment 
-made by the client. exact location of the land where the manufacturing unit is being 
-setup, documents provided for registering the subsidy application and any follow up 
-documents required by the Central or State Government authorities and will not be liable 
-for any reduction in subsidy amount applicable to the client including the client being 
-determined as non-eligible to avail the subsidy due to lack of documentation, change of 
-policy and non-cooperation by client
-
+\\begin{{itemize}}
+    \\item SCPL (parent company of Subsidy4India) Team has calculated the subsidy based on 
+    details provided by the client and the same can vary depending on the capital investment 
+    made by the client. exact location of the land where the manufacturing unit is being 
+    setup, documents provided for registering the subsidy application and any follow up 
+    documents required by the Central or State Government authorities and will not be liable 
+    for any reduction in subsidy amount applicable to the client including the client being 
+    determined as non-eligible to avail the subsidy due to lack of documentation, change of 
+    policy and non-cooperation by client
+\\end{{itemize}}
 \\end{{document}}
 """
 
