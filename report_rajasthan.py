@@ -167,11 +167,11 @@ policy and non-cooperation by client
         )
 
         if result.returncode != 0:
-            log_file = os.path.join(output_dir, "pdflatex_error.log")
-            with open(log_file, "w", encoding="utf-8") as f:
-                f.write("STDOUT:\n" + result.stdout + "\n\nSTDERR:\n" + result.stderr)
-            print("PDF generation error written to:", log_file)
-            raise Exception(f"PDF generation failed. Details saved to {log_file}")
+            print("===== PDF GENERATION FAILED =====")
+            print("STDOUT:\n", result.stdout)
+            print("STDERR:\n", result.stderr)
+            raise Exception("PDF generation failed. LaTeX error logged to console.")
+
 
     except FileNotFoundError:
         raise Exception("pdflatex command not found. Is LaTeX installed in your container?")
