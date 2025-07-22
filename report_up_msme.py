@@ -1,7 +1,20 @@
 import pandas as pd
 import os
+import traceback
+import subprocess
 
 def generate_report_up_msme(user_data, result, zone):
+    
+    output_dir = "reports"
+    os.makedirs(output_dir, exist_ok=True)
+
+    safe_name = user_data.get("Name", "user").replace(" ", "_")
+    filename = f"{safe_name}_Subsidy_Report.pdf"
+    tex_filename = f"{safe_name}_Subsidy_Report.tex"
+
+    tex_path = os.path.join(output_dir, tex_filename)
+    pdf_path = os.path.join(output_dir, filename)
+
     capital_subsidy_rate = result.get('capital_subsidy_rate', '')
     if capital_subsidy_rate:
         capital_subsidy_rate = f"{capital_subsidy_rate} \\%"
@@ -24,9 +37,10 @@ Offices in New Delhi \\& New York\\
 \\textbf{{Date: {pd.Timestamp.now().strftime('%Y-%m-%d')}}}
 
 \\vspace{{1em}}
-
-\\item {user_data['Organization Name']} \\
-\\item {user_data['District']}, {user_data['State']} \\\\
+\\begin{{itemize}}
+  \item {user_data['Organization Name']} \\
+  \item {user_data['District']}, {user_data['State']} \\
+\\end{{itemize}}
 \\textbf{{Attn.:}} {user_data['Name']}
 
 \\vspace{{1em}}
@@ -161,8 +175,36 @@ from the date of filing the SGST reimbursement application. \\\\
 \\end{{document}}
 """
 
-    with open("Subsidy_report_up_msme.tex", "w", encoding="utf-8") as f:
+    with open(tex_path, "w", encoding="utf-8") as f:
         f.write(tex_content)
 
-    os.system("pdflatex -interaction=nonstopmode Subsidy_report_up_msme.tex")
-    return "Subsidy_report_up_msme.pdf"
+    print("Running pdflatex on:", tex_path)
+
+    try:
+        result = subprocess.run(
+            ["pdflatex", "-interaction=nonstopmode", "-output-directory", output_dir, tex_path],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True
+        )
+
+        if result.returncode != 0:
+            print("===== PDF GENERATION FAILED =====")
+            print("STDOUT:\n", result.stdout)
+            print("STDERR:\n", result.stderr)
+            print("PDFLaTeX returned non-zero code. Checking if PDF was generated anyway...")
+            if not os.path.exists(pdf_path):
+                raise Exception("PDF generation failed. LaTeX error logged to console.")
+            else:
+                print("PDF was generated despite warnings.")
+
+
+    except FileNotFoundError:
+        raise Exception("pdflatex command not found. Is LaTeX installed in your container?")
+
+    except Exception as e:
+        print("Unexpected error while generating PDF:", str(e))
+        traceback.print_exc()
+        raise
+
+    return pdf_path
