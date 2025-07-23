@@ -5,7 +5,7 @@ from report_punjab import generate_report_punjab
 
 # Calculation logic
 def calculate_subsidy(enterprise_size, plant_machinery, building_civil_work, land_cost,
-                      term_loan_amount, net_sgst_paid_cash_ledger):
+                      term_loan_amount):
 
     enterprise_size = enterprise_size.strip().capitalize()
     capital_investment = plant_machinery + building_civil_work
@@ -37,15 +37,15 @@ def calculate_subsidy(enterprise_size, plant_machinery, building_civil_work, lan
 
     # SGST Reimbursement (Eligibility 5 years )
     if enterprise_size == "Startup":  
-        sgst_reimbursement = net_sgst_paid_cash_ledger * 5
+        sgst_reimbursement = capital_investment * 5
     elif enterprise_size == "Small":
-        sgst_reimbursement = min(0.60 * net_sgst_paid_cash_ledger, 0.60 * capital_investment) * 5
+        sgst_reimbursement = min(0.60 * capital_investment, 0.60 * capital_investment) * 5
     elif enterprise_size == "Micro":
-        sgst_reimbursement = min(0.70 * net_sgst_paid_cash_ledger, 0.70 * capital_investment) * 5 
+        sgst_reimbursement = min(0.70 * capital_investment, 0.70 * capital_investment) * 5 
     elif enterprise_size == "Medium":
-        sgst_reimbursement = min(0.50 * net_sgst_paid_cash_ledger, 0.50 * capital_investment) * 5
+        sgst_reimbursement = min(0.50 * capital_investment, 0.50 * capital_investment) * 5
     elif enterprise_size == "Large":
-        sgst_reimbursement = min(0.30 * net_sgst_paid_cash_ledger, 0.30 * capital_investment) * 5
+        sgst_reimbursement = min(0.30 * capital_investment, 0.30 * capital_investment) * 5
     else:
         sgst_reimbursement = 0 
 
@@ -68,7 +68,6 @@ def process_punjab(data):
         building_civil_work = float(data["Building and Civil Work Investment"])
         land_cost = float(data.get("Land Cost",0))
         term_loan_amount = float(data.get("Term Loan Amount",0))
-        net_sgst_paid_cash_ledger = float(data["Net SGST Paid Cash Ledger"])
 
         # Perform calculations
         result = calculate_subsidy(
@@ -77,7 +76,6 @@ def process_punjab(data):
             building_civil_work,
             land_cost,
             term_loan_amount,
-            net_sgst_paid_cash_ledger,
         )
         
         # Generate report

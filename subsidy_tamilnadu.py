@@ -8,7 +8,7 @@ df['District'] = df['District'].str.strip().str.lower()
 
 # Calculation
 def calculate_subsidy(zone, enterprise_size, plant_machinery, building_civil_work, land_cost,
-                      term_loan_amount, net_sgst_paid_cash_ledger):
+                      term_loan_amount):
 
     enterprise_size = enterprise_size.strip().capitalize()
     capital_investment = plant_machinery + building_civil_work
@@ -77,14 +77,13 @@ def calculate_subsidy(zone, enterprise_size, plant_machinery, building_civil_wor
         sgst_reimbursement = 0
     elif enterprise_size in ["Large", "Mega", "Ultra-Mega"]:
         sgst_eligibility_years = 0
-        sgst_reimbursement = 1.00 * net_sgst_paid_cash_ledger * sgst_eligibility_years #100% reimbursement for 15 years 
+        sgst_reimbursement = 1.00 * capital_investment * sgst_eligibility_years #100% reimbursement for 15 years 
     else:
         sgst_eligibility_years = 0 
         sgst_reimbursement = 0
 
     # Total subsidy 
     total_subsidy = capital_subsidy + sgst_reimbursement + stamp_duty_subsidy + interest_subsidy
-
 
     return {
         "capital_investment_subsidy": round(capital_subsidy, 2),
@@ -105,7 +104,6 @@ def process_tamilnadu(data):
         building_civil_work = float(data["Building and Civil Work Investment"])
         land_cost = float(data.get("Land Cost",0))
         term_loan_amount = float(data.get("Term Loan Amount",0))
-        net_sgst_paid_cash_ledger = float(data.get("Net SGST Paid Cash Ledger",0))
 
         #Zone 
         zone_row = df[df['District'].str.lower() == district]
@@ -121,8 +119,7 @@ def process_tamilnadu(data):
             plant_machinery,
             building_civil_work,
             land_cost,
-            term_loan_amount,
-            net_sgst_paid_cash_ledger  
+            term_loan_amount
         )
 
         # Generate report

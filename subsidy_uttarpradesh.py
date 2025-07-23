@@ -39,7 +39,7 @@ zone_data = { "Zone":["A","B","C"],
 
 # Subsidy calculation logic
 def calculate_subsidy(zone, enterprise_size, plant_machinery, building_civil_work,
-                       land_cost,net_sgst_paid_cash_ledger):
+                       land_cost):
     
     zone_info = zone_data.get(zone)
     index = zone_info["Enterprise Size"].index(enterprise_size)
@@ -62,7 +62,7 @@ def calculate_subsidy(zone, enterprise_size, plant_machinery, building_civil_wor
     # SGST Reimbursement
     max_sgst = capital_investment * (zone_info["SGST Reimbursement Max (%)"][index] / 100)
     sgst_eligible_years = zone_info["SGST Eligible Years"][index]
-    sgst_reimbursement = min(net_sgst_paid_cash_ledger, max_sgst) * (zone_info["SGST Eligible Years"][index])
+    sgst_reimbursement = min(capital_investment, max_sgst) * (zone_info["SGST Eligible Years"][index])
 
     # Total subsidy 
     total_subsidy = capital_subsidy + sgst_reimbursement + stamp_duty_subsidy 
@@ -85,7 +85,6 @@ def process_up(data):
         plant_machinery = float(data["Plant and Machinery Investment"])
         building_civil_work = float(data["Building and Civil Work Investment"])
         land_cost = float(data.get("Land Cost",0))
-        net_sgst_paid_cash_ledger = float(data["Net SGST Paid Cash Ledger"])
 
         #Zone 
         zone_row = df[df['District'].str.lower() == district]
@@ -99,8 +98,7 @@ def process_up(data):
             enterprise_size,
             plant_machinery,
             building_civil_work,
-            land_cost,
-            net_sgst_paid_cash_ledger
+            land_cost
         )
 
         # Generate report

@@ -25,7 +25,7 @@ zone_df = pd.DataFrame(zone_data)
 
 # Calculation logic
 def calculate_subsidy(zone, plant_machinery, building_civil_work, land_cost,
-                      term_loan_amount, net_sgst_paid_cash_ledger):
+                      term_loan_amount):
 
     zone_info = zone_df[zone_df["Zone"] == zone].iloc[0]
     
@@ -50,7 +50,8 @@ def calculate_subsidy(zone, plant_machinery, building_civil_work, land_cost,
 
     # SGST Reimbursement
     capital_subsidy_per_year = capital_subsidy / (zone_info["SGST Eligible years"])
-    sgst_reimbursement = min(capital_subsidy_per_year, net_sgst_paid_cash_ledger) * (zone_info["SGST Eligible years"])
+    capital_investment_per_year = capital_investment / (zone_info["SGST Eligible years"])
+    sgst_reimbursement = min(capital_subsidy_per_year, capital_investment_per_year) * (zone_info["SGST Eligible years"])
 
     # Total subsidy 
     total_subsidy = capital_subsidy + sgst_reimbursement + stamp_duty_waive_off + interest_subsidy
@@ -71,7 +72,7 @@ def process_maharashtra(data):
         building_civil_work = float(data["Building and Civil Work Investment"])
         land_cost = float(data.get("Land Cost",0))
         term_loan_amount = float(data.get("Term Loan Amount",0))
-        net_sgst_paid_cash_ledger = float(data["Net SGST Paid Cash Ledger"])
+        
 
         # Zone lookup
         zone_row = df[df['Subdistrict'].str.lower() == subdistrict]
@@ -87,7 +88,6 @@ def process_maharashtra(data):
             building_civil_work,
             land_cost,
             term_loan_amount,
-            net_sgst_paid_cash_ledger,
         )
         
         # Generate report

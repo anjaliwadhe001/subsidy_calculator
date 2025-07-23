@@ -31,7 +31,7 @@ zone_data = {
 
 # Calculation logic
 def calculate_subsidy(zone, enterprise_size, plant_machinery, building_civil_work, industry_type,
-                      term_loan_amount, net_sgst_paid_cash_ledger, turn_over):
+                      term_loan_amount, turn_over):
     
     zone_info = zone_data.get(zone)
     index = zone_info["Enterprise Size"].index(enterprise_size.strip().capitalize())
@@ -79,9 +79,9 @@ def calculate_subsidy(zone, enterprise_size, plant_machinery, building_civil_wor
 
     # SGST Reimbursement
     if enterprise_size in ["Large", "Mega", "Ultra Mega"]:
-        sgst_reimbursement = net_sgst_paid_cash_ledger * 0.75 * 7
+        sgst_reimbursement = capital_investment * 0.75 * 7
     else:
-        sgst_reimbursement = net_sgst_paid_cash_ledger * 0.75 * 10
+        sgst_reimbursement = capital_investment * 0.75 * 10
 
     #TLI 
     if enterprise_size in ["Large", "Mega", "Ultra Mega"]:
@@ -109,7 +109,6 @@ def process_rajasthan(data):
         plant_machinery = float(data["Plant and Machinery Investment"])
         building_civil_work = float(data["Building and Civil Work Investment"])
         term_loan_amount = float(data.get("Term Loan Amount",0))
-        net_sgst_paid_cash_ledger = float(data["Net SGST Paid Cash Ledger"])
         turn_over = float(data["Net Turnover"])
 
         # Zone lookup
@@ -127,7 +126,6 @@ def process_rajasthan(data):
             building_civil_work,
             industry_type,
             term_loan_amount,
-            net_sgst_paid_cash_ledger,
             turn_over
         )
 

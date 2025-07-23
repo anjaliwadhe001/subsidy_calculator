@@ -46,7 +46,7 @@ zone_data = {
 }
 
 # Calculation logic
-def calculate_subsidy(zone, enterprise_size, plant_machinery, building_civil_work, net_sgst_paid_cash_ledger, land_cost, term_loan_amount):
+def calculate_subsidy(zone, enterprise_size, plant_machinery, building_civil_work, land_cost, term_loan_amount):
 
     zone_info = zone_data.get(zone)
     index = zone_info["Enterprise Size"].index(enterprise_size.strip().capitalize())
@@ -70,7 +70,7 @@ def calculate_subsidy(zone, enterprise_size, plant_machinery, building_civil_wor
     sgst_reimbursement_max= capital_investment * (sgst_max_rate/100) * sgst_eligibility_years 
     sgst_rate = (zone_info["SGST reimbursement(%)"][index])
 
-    sgst_amount = (sgst_rate/100) * net_sgst_paid_cash_ledger * sgst_eligibility_years 
+    sgst_amount = (sgst_rate/100) * capital_investment * sgst_eligibility_years 
 
     sgst_reimbursement = min(sgst_amount, sgst_reimbursement_max)
 
@@ -125,7 +125,6 @@ def process_gujarat(data):
         enterprise_size = data["Enterprise Size"]
         plant_machinery = float(data["Plant and Machinery Investment"])
         building_civil_work = float(data["Building and Civil Work Investment"])
-        net_sgst_paid_cash_ledger = float(data["Net SGST Paid Cash Ledger"])
         land_cost = float(data.get("Land Cost",0))
         term_loan_amount = float(data.get(("Term Loan Amount"), 0))
 
@@ -142,7 +141,6 @@ def process_gujarat(data):
             enterprise_size,
             plant_machinery,
             building_civil_work,
-            net_sgst_paid_cash_ledger,
             land_cost,
             term_loan_amount
         )

@@ -24,7 +24,7 @@ zone_df = pd.DataFrame(zone_data)
 
 # Calculation
 def calculate_subsidy(zone, enterprise_size, plant_machinery, building_civil_work,land_cost,
-                      term_loan_amount, net_sgst_paid_cash_ledger):
+                      term_loan_amount):
 
     zone_info = zone_df[zone_df["Zone"] == zone].iloc[0]
     enterprise_size = enterprise_size.strip().capitalize()
@@ -53,15 +53,14 @@ def calculate_subsidy(zone, enterprise_size, plant_machinery, building_civil_wor
         interest_subsidy = min(annual_interest, 2000000) * interest_years
     else:
         interest_subsidy = 0 
-    print("Interest Subsidy", interest_subsidy)
     
     # SGST Reimbursement
     sgst_initial_percent = zone_info["SGST Initial (%)"].item()
     sgst_extended_percent = zone_info["SGST Extended (%)"].item()
 
     sgst_reimbursement = (
-        net_sgst_paid_cash_ledger * (sgst_initial_percent / 100) +
-        net_sgst_paid_cash_ledger * (sgst_extended_percent / 100)
+        capital_investment * (sgst_initial_percent / 100) +
+        capital_investment * (sgst_extended_percent / 100)
     )
     # Total subsidy
     total_subsidy = capital_subsidy + sgst_reimbursement + stamp_duty_subsidy + interest_subsidy
@@ -73,6 +72,11 @@ def calculate_subsidy(zone, enterprise_size, plant_machinery, building_civil_wor
         "sgst_reimbursement": round(sgst_reimbursement, 2),
         "total_subsidy": round(total_subsidy, 2)
     }
+def safe_float(value):
+    try:
+        return float(str(value).replace(",", "").replace("Rs.", "").strip())
+    except:
+        return 0.0
 
 def process_haryana(data):
     try:
@@ -82,11 +86,10 @@ def process_haryana(data):
             raise ValueError("Missing 'Enterprise Size' in input data.")
 
         subdistrict = data["Subdistrict"].strip().lower()
-        plant_machinery = float(data["Plant and Machinery Investment"])
-        building_civil_work = float(data["Building and Civil Work Investment"])
-        land_cost = float(data.get("Land Cost",0))
-        term_loan_amount = float(data.get("Term Loan Amount",0))
-        net_sgst_paid_cash_ledger = float(data["Net SGST Paid Cash Ledger"])
+        plant_machinery = safe_float(data["Plant and Machinery Investment"])
+        building_civil_work = safe_float(data["Building and Civil Work Investment"])
+        land_cost = safe_float(data.get("Land Cost",0))
+        term_loan_amount = safe_float(data.get("Term Loan Amount",0))
 
         # Zone lookup
         zone_row = df[df['Subdistrict'].str.lower() == subdistrict]
@@ -104,7 +107,6 @@ def process_haryana(data):
             building_civil_work,
             land_cost,
             term_loan_amount,
-            net_sgst_paid_cash_ledger
         )
         # Generate report
         pdf_path = generate_report_haryana(data, result, zone, zone_df[zone_df["Zone"] == zone].iloc[0])
