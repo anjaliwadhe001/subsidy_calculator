@@ -1,4 +1,3 @@
-# Need to Add dropdown for  Industry type
 import pandas as pd
 from report_rajasthan import generate_report_rajasthan
 
