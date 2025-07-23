@@ -37,12 +37,9 @@ def calculate_subsidy(zone, enterprise_size, plant_machinery, building_civil_wor
     else:
         capital_subsidy = 0
 
-    print("Capital subsidy", capital_subsidy)
-
     # Stamp Duty Subsidy 
     stamp_duty_rate = zone_info["Stamp Duty (%)"].item()
     stamp_duty_subsidy = stamp_duty_rate * (0.07 * land_cost)
-    print("Stamp Duty: ", stamp_duty_subsidy)
 
     # Interest Subsidy 
     interest_rate_percent = zone_info["Interest Rate (%)"].item()
