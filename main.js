@@ -124,4 +124,25 @@ form.addEventListener("submit", async (e) => {
       console.error(err);
       statusDiv.innerHTML = "Something went wrong while generating the report.";
   }
+  
 });
+
+// === Industry Type: Show/Hide "Other" Input ===
+  const industryTypeSelect = document.querySelector("#industryType");
+  const otherIndustryContainer = document.querySelector("#otherIndustryContainer");
+  const otherIndustryInput = document.querySelector("#otherIndustry");
+
+  function toggleOtherInput() {
+    const selected = industryTypeSelect.value;
+    if (selected === "Other") {
+      otherIndustryContainer.classList.add("show");
+      otherIndustryInput.required = true;
+    } else {
+      otherIndustryContainer.classList.remove("show");
+      otherIndustryInput.value = "";
+      otherIndustryInput.required = false;
+    }
+  }
+
+  // Attach event listener
+  industryTypeSelect.addEventListener("change", toggleOtherInput);
