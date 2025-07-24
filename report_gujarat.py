@@ -11,9 +11,10 @@ def generate_report_gujarat(user_data, result, zone):
     output_dir = "reports"
     os.makedirs(output_dir, exist_ok=True)
 
-    safe_name = user_data.get("Name", "user").replace(" ", "_")
-    filename = f"{safe_name}_Subsidy_Report.pdf"
-    tex_filename = f"{safe_name}_Subsidy_Report.tex"
+    safe_name = user_data.get("Organisation Name", "user").replace(" ", "_")
+    safe_name1 = user_data.get("State", "user").replace(" ", "_")
+    filename = f"{safe_name}_{safe_name1}_Subsidy_Report.pdf"
+    tex_filename = f"{safe_name}_{safe_name1}_Subsidy_Report.tex"
 
     tex_path = os.path.join(output_dir, tex_filename)
     pdf_path = os.path.join(output_dir, filename)
@@ -55,7 +56,7 @@ Offices in New Delhi \\& New York\\\\
 
 \\end{{center}}
 
-\\textbf{{Date: {pd.Timestamp.now().strftime('%Y-%m-%d')}}}
+\\textbf{{Date: {pd.Timestamp.now().strftime('%d-%m-%Y')}}}
 
 \\vspace{{1em}}
 \\begin{{itemize}}
@@ -77,22 +78,22 @@ Subsidy4India has identified various subsidies available for your organisation f
 
 \\item \\textbf{{Asset Creation Incentives}} \\\\
 \\begin{{itemize}}[leftmargin=1.5em]
-    \\textbf{{(a)Capital Investment Subsidy (One-time): }}According to MSME Policy 2024, Plastic alternative, Agricultural and Food processing industries will get subsidy 50\\% of their capital investment with the cap of Rs. 40 lakhs and Rs. 1.5 Crore respectively. 
-    \\textbf{{(b)SGST reimbursement: }}Kindly note that you can avail SGST reimbursement of {{{sgst_rate}}} on the SGST paid for {{{sgst_eligibility_years}}} with the annual cap of {{{sgst_max_rate}}} of Fixed Capital Investment.
-    \\textbf{{(c)Stamp Duty Subsidy (One-time): }}Under the Aatma nirbhar Gujarat Scheme, the government provides a \\textbf{{100\\% reimbursement of stamp duty and registration charges}} paid to the Government of Gujarat for the purchase and/or lease of land meant for eligible industrial projects.
+    \\textbf{{(a)Capital Investment Subsidy (One-time): }}According to MSME Policy 2024, Plastic alternative, Agricultural and Food processing industries will get subsidy 50\\% of their capital investment with the cap of Rs. 40 lakhs and Rs. 1.5 Crore respectively. \\\\
+    \\textbf{{(b)SGST reimbursement: }}Kindly note that you can avail SGST reimbursement of {{{sgst_rate}}} on the SGST paid for {{{sgst_eligibility_years}}} with the annual cap of {{{sgst_max_rate}}} of Fixed Capital Investment. \\\\
+    \\textbf{{(c)Stamp Duty Subsidy (One-time): }}Under the Aatma nirbhar Gujarat Scheme, the government provides a \\textbf{{100\\% reimbursement of stamp duty and registration charges}} paid to the Government of Gujarat for the purchase and/or lease of land meant for eligible industrial projects.\\\\
     \\textbf{{(d)Interest Subsidy(applicable only when a term loan is availed for the project): }}Interest Subsidy is available at {{{interest_rate}}} of term loan amount for {{{interest_eligibility_years}}}. \\\\
 \\end{{itemize}}
     
-\\section*{{Costing Table}}
+\\section*{{Subsidy Snapshot}}
     \\begin{{longtable}}{{|p{{4cm}}|p{{4cm}}|p{{4cm}}|p{{4cm}}|}}
     \\hline
     \\textbf{{Subsidy head}} & \\textbf{{Total subsidy}} & \\textbf{{No. of years}} & \\textbf{{Assumption}} \\\\
     \\hline
-    Capital Investment Subsidy & Rs. {result['capital_investment_subsidy']} & One Time years & Post production \\\\
+    Capital Investment Subsidy & Rs. {result['capital_investment_subsidy']} & One Time years & Available only for Micro and Large Enterprises \\\\
     \\hline
     SGST reimbursement & Rs. {result['sgst_reimbursement']} & Disbursed over {{{sgst_eligibility_years}}} & Paid from cash ledger \\\\
     \\hline
-    Stamp Duty Subsidy & Rs. {result['stamp_duty_subsidy']} & One Time & Can be availed during purchase\\\\
+    Stamp Duty Subsidy & Rs. {result['stamp_duty_subsidy']} & One Time & Available only for MSME and Mega Enterprises \\\\
     \\hline
     Interest Subsidy & Rs. {result['interest_subsidy']} & {{{interest_eligibility_years}}} & Post production\\\\
     \\hline 

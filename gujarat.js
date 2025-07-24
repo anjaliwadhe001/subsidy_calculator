@@ -61,13 +61,8 @@ export function renderForm(container) {
       <label for="termloanAmount">Term Loan Amount:</label>
       <input type="number" id="termloanAmountInput" name="Term Loan Amount">
     </div>
-
-    <div class="form-group">
-      <label for="netsgstpaidcashLedger">Net SGST Paid Cash Ledger:</label>
-      <input type="number" id="netsgstpaidcashLedger" name="Net SGST Paid Cash Ledger" required>
-    </div>
-    
   `;
+
   //Handles term logic
   const termLoan = container.querySelector("#termLoan");
   const interestRateGroup = container.querySelector("#interestRateGroup");
@@ -96,7 +91,6 @@ export function renderForm(container) {
   });
 
   //land cost logic
-
   const landOwned = container.querySelector("#landOwned");
   const landCostGroup = container.querySelector("#landCostGroup");
   const landCostInput = landCostGroup.querySelector("input");
@@ -106,4 +100,5 @@ export function renderForm(container) {
     landCostGroup.classList.toggle("hidden", !showLandCost);
     landCostInput.required = showLandCost;
   });
+  
 }

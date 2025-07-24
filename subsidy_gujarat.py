@@ -7,7 +7,6 @@ df.columns = df.columns.str.strip()
 df['Subdistrict'] = df['Subdistrict'].str.strip().str.lower()
 
 # Zone data
-## Not adding thrust sectors in calculations
 zone_data = {
 #Zone A: Category I Taluka
 #Zone B: Category II Taluka
@@ -16,7 +15,7 @@ zone_data = {
     "A":{
         "Enterprise Size":["Micro","Small","Medium","Large", "Mega"],
         "Capital Subsidy(%)":[25, 0, 0, 10, 0],
-        "Interest rate(%)":[7]*5, #cap 60%
+        "Interest rate(%)":[7]*5,
         "Interest eligible years":[7, 7, 7, 10, 10],
         "Max interest": [3500000, 3500000, 3500000, 0, 0], #cap amount for interest subsidy
         "SGST reimbursement(%)": [100, 100, 100, 75, 100],
@@ -26,7 +25,7 @@ zone_data = {
     "B":{
         "Enterprise Size":["Micro","Small","Medium","Large", "Mega"],
         "Capital Subsidy(%)":[20, 0, 0, 8, 0],
-        "Interest rate(%)":[6]*5, #cap 60%
+        "Interest rate(%)":[6]*5,
         "Interest eligible years":[6, 6, 6, 8, 10], 
         "Max interest": [3000000, 3000000, 3000000, 0, 0],
         "SGST reimbursement(%)":[90, 90, 90, 60, 100],
@@ -36,7 +35,7 @@ zone_data = {
     "C":{
         "Enterprise Size":["Micro","Small","Medium","Large", "Mega"],
         "Capital Subsidy(%)":[10, 0, 0, 4, 0],
-        "Interest rate(%)":[5]*5, #cap 60%
+        "Interest rate(%)":[5]*5, 
         "Interest eligible years":[5, 5, 5, 6, 10],
         "Max interest": [2500000, 2500000, 2500000, 0, 0],
         "SGST reimbursement(%)":[80, 80, 80, 40, 100],
@@ -60,7 +59,6 @@ def calculate_subsidy(zone, enterprise_size, plant_machinery, building_civil_wor
     interest_subsidy = 0 
 
     # Capital Subsidy (available for Micro & Mega)
-    # Available only for enterprises 
     capital_subsidy_rate = zone_info["Capital Subsidy(%)"][index] 
     capital_subsidy = capital_subsidy_rate/100 * capital_investment
 
@@ -75,8 +73,7 @@ def calculate_subsidy(zone, enterprise_size, plant_machinery, building_civil_wor
     sgst_reimbursement = min(sgst_amount, sgst_reimbursement_max)
 
     # Stamp Duty Subsidy
-    # Confirm this for Large
-    if enterprise_size in ["Micro", "Small", "Medium", "Mega"]: #100% stamp duty
+    if enterprise_size in ["Micro", "Small", "Medium", "Mega"]: 
         stamp_duty_subsidy = land_cost * 0.07 
     else: 
         stamp_duty_subsidy = 0

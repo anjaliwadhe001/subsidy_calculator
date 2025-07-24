@@ -15,6 +15,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
+#API Route for subsidy calculation
 @app.route("/subsidy", methods=["POST"])
 def calculate_subsidy():
     data = request.get_json(force=True)
@@ -52,6 +53,7 @@ def calculate_subsidy():
 
     return jsonify(result)
 
+#API Route for pdf download
 @app.route("/download_pdf/<filename>", methods=["GET"])
 def download_pdf(filename):
     pdf_dir = os.path.join(os.getcwd(), "reports")
