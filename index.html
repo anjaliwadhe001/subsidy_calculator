@@ -53,6 +53,19 @@
       </select>
     </div>
 
+    <!-- Hidden input field for 'Other' -->
+      <div class="form-group" id="otherIndustryContainer" style="display: none;">
+        <label for="otherIndustry">Please specify:</label>
+        <input type="text" id="otherIndustry" name="Other Industry Type" placeholder="Enter industry type">
+      </div>
+
+      <script>
+        function toggleOtherInput() {
+          const industryType = document.getElementById("industryType").value;
+          const otherField = document.getElementById("otherIndustryContainer");
+          otherField.style.display = industryType === "Other" ? "block" : "none";
+        }
+      </script>
 
       <div class="form-group">
         <label for="state">Select State</label>
