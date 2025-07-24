@@ -5,7 +5,7 @@ export function renderForm(container) {
     <h3>Fill your Details here</h3>
 
     <div class="form-group">
-      <label for="rajasthanDistrict">District:</label>
+      <label for="rajasthanDistrict">District</label>
       <select id="rajasthanDistrict" name="District" required>
         <option value="">Select District</option>
         ${Object.keys(rajasthanData).map(d => `<option value="${d}">${d}</option>`).join("")}
@@ -13,40 +13,29 @@ export function renderForm(container) {
     </div>
 
     <div class="form-group">
-      <label for="rajasthanSubdistrict">Subdistrict:</label>
+      <label for="rajasthanSubdistrict">Subdistrict</label>
       <select id="rajasthanSubdistrict" name="Subdistrict" required>
         <option value="">Select Subdistrict</option>
       </select>
     </div>
 
     <div class="form-group">
-      <label for="plantMachinery">Plant & Machinery Investment:</label>
+      <label for="plantMachinery">Plant & Machinery Investment(Rs.)</label>
       <input type="number" id="plantMachinery" name="Plant and Machinery Investment" required>
     </div>
 
     <div class="form-group">
-      <label for="buildingCivil">Building & Civil Work Investment:</label>
+      <label for="buildingCivil">Building & Civil Work Investment(Rs.)</label>
       <input type="number" id="buildingCivil" name="Building and Civil Work Investment" required>
     </div>
 
-    <div class="form-group">
-      <label for="industryType">Industry Type:</label>
-      <select id="industryType" name="Industry Type" required>
-        <option value="">Select</option>
-        <option value="Plastic Alternatives">Plastic Alternatives</option>
-        <option value="Agriculture processing">Agriculture processing</option>
-        <option value="Food processing">Food processing</option>
-        <option value="Other">Other</option>
-      </select>
-    </div>
-
     <div class="form-group" id="turnoverField">
-      <label for="netTurnover">Net Turnover:</label>
+      <label for="netTurnover">Net Turnover(Rs.)</label>
       <input type="number" id="netTurnover" name="Net Turnover">
     </div>
 
     <div class="form-group">
-      <label for="termLoan">Term Loan Availed?</label>
+      <label for="termLoan">Term Loan Availed</label>
       <select id="termLoan" name="Term Loan Availed">
         <option value="">Select</option>
         <option value="Yes">Yes</option>
@@ -55,14 +44,10 @@ export function renderForm(container) {
     </div>
 
     <div class="form-group hidden" id="termloanAmount">
-      <label for="termloanAmountInput">Term Loan Amount:</label>
+      <label for="termloanAmountInput">Term Loan Amount(Rs.)</label>
       <input type="number" id="termloanAmountInput" name="Term Loan Amount">
     </div>
 
-    <div class="form-group">
-      <label for="netsgstpaidcashLedger">Net SGST Paid Cash Ledger:</label>
-      <input type="number" id="netsgstpaidcashLedger" name="Net SGST Paid Cash Ledger" required>
-    </div>
   `;
 
   const districtSelect = container.querySelector("#rajasthanDistrict");

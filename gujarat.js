@@ -5,7 +5,7 @@ export function renderForm(container) {
     <h3>Fill your details here</h3>
 
     <div class="form-group">
-      <label for="gujaratDistrict">District:</label>
+      <label for="gujaratDistrict">District</label>
       <select id="gujaratDistrict" name="District" required>
         <option value="">Select District</option>
         ${Object.keys(gujaratData).map(d => `<option value="${d}">${d}</option>`).join("")}
@@ -13,25 +13,25 @@ export function renderForm(container) {
     </div>
 
     <div class="form-group">
-      <label for="gujaratSubdistrict">Subdistrict:</label>
+      <label for="gujaratSubdistrict">Subdistrict</label>
       <select id="gujaratSubdistrict" name="Subdistrict" required>
         <option value="">Select Subdistrict</option>
       </select>
     </div>
 
     <div class="form-group">
-      <label for="plantMachinery">Plant & Machinery Investment:</label>
+      <label for="plantMachinery">Plant & Machinery Investment(Rs.)</label>
       <input type="number" id="plantMachinery" name="Plant and Machinery Investment" required>
     </div>
 
     <div class="form-group">
-      <label for="buildingCivil">Building & Civil Work Investment:</label>
+      <label for="buildingCivil">Building & Civil Work Investment(Rs.)</label>
       <input type="number" id="buildingCivil" name="Building and Civil Work Investment" required>
     </div>
 
     <div class="form-group">
-      <label for="landOwned">Is land owned by legal entity?</label>
-      <select id="landOwned" name="Land Owned By Legal Entity?" required>
+      <label for="landOwned">Is land owned by legal entity</label>
+      <select id="landOwned" name="Land Owned By Legal Entity" required>
         <option value="">Select</option>
         <option value="Yes">Yes</option>
         <option value="No">No</option>
@@ -39,12 +39,12 @@ export function renderForm(container) {
     </div>
 
     <div class="form-group hidden" id="landCostGroup">
-      <label for="landCost">Land Cost:</label>
+      <label for="landCost">Land Cost</label>
       <input type="number" id="landCost" name="Land Cost">
     </div>
 
     <div class="form-group">
-      <label for="termLoan">Term Loan Availed?</label>
+      <label for="termLoan">Term Loan Availed</label>
       <select id="termLoan" name="Term Loan Availed">
         <option value="">Select</option>
         <option value="Yes">Yes</option>
@@ -53,12 +53,12 @@ export function renderForm(container) {
     </div>
 
     <div class="form-group hidden" id="interestRateGroup">
-      <label for="interestRate">Interest Rate (%):</label>
+      <label for="interestRate">Interest Rate (%)</label>
       <input type="number" id="interestRate" name="Interest Rate">
     </div>
 
     <div class="form-group hidden" id="termloanAmount">
-      <label for="termloanAmount">Term Loan Amount:</label>
+      <label for="termloanAmount">Term Loan Amount</label>
       <input type="number" id="termloanAmountInput" name="Term Loan Amount">
     </div>
   `;

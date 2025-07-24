@@ -2,7 +2,7 @@ export function renderForm(container) {
   container.innerHTML = `
     <h3>Fill your Details here</h3>
     <div class="form-group">
-      <label for="mpDistrict">District:</label>
+      <label for="mpDistrict">District</label>
       <select name="District" id="District">
             <option value="Indore">Indore</option>
             <option value="Bhopal">Bhopal</option>
@@ -37,15 +37,15 @@ export function renderForm(container) {
       </select>
     </div>
     
-    <label>Plant and Machinery Investment:
+    <label>Plant and Machinery Investment(Rs.)
       <input type="number" name="Plant and Machinery Investment" required>
     </label><br>
 
-    <label>Building and Civil Work Investment:
+    <label>Building and Civil Work Investment(Rs.)
       <input type="number" name="Building and Civil Work Investment" required>
     </label><br>
 
-    <label>Is Term Loan Availed?
+    <label>Is Term Loan Availed
       <select name="Is Term Loan Availed?" id="termLoanSelectMP" required>
         <option value="">Select</option>
         <option value="Yes">Yes</option>
@@ -54,11 +54,11 @@ export function renderForm(container) {
     </label><br>
 
     <div id="loanFieldsMP" style="display:none;">
-      <label>Term Loan Amount:
+      <label>Term Loan Amount(Rs.)
         <input type="number" name="Term Loan Amount" step="0.01">
       </label><br>
 
-      <label>Interest Rate (e.g., 0.07 for 7%):
+      <label>Interest Rate (%)
         <input type="number" name="Interest Rate" step="0.01">
       </label><br>
     </div>

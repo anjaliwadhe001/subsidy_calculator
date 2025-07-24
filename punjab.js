@@ -3,7 +3,7 @@ export function renderForm(container) {
     <h3>Fill your Details here</h3>
     
     <div class="form-group">
-      <label for="punjabDistrict">District:</label>
+      <label for="punjabDistrict">District</label>
       <select name="District" id="punjabDistrict" required>
         <option value="">Select District</option>
         <option value="Amritsar">Amritsar</option>
@@ -33,17 +33,17 @@ export function renderForm(container) {
     </div>
 
     <div class="form-group">
-      <label for="plantMachinery">Plant & Machinery Investment:</label>
+      <label for="plantMachinery">Plant & Machinery Investment(Rs.)</label>
       <input type="number" id="plantMachinery" name="Plant and Machinery Investment" required>
     </div>
 
     <div class="form-group">
-      <label for="buildingCivil">Building & Civil Work Investment:</label>
+      <label for="buildingCivil">Building & Civil Work Investment(Rs.)</label>
       <input type="number" id="buildingCivil" name="Building and Civil Work Investment" required>
     </div>
 
     <div class="form-group">
-      <label for="landOwned">Is land owned by legal entity?</label>
+      <label for="landOwned">Is land owned by legal entity</label>
       <select id="landOwned" name="Land Owned By Legal Entity?" required>
         <option value="">Select</option>
         <option value="Yes">Yes</option>
@@ -52,12 +52,12 @@ export function renderForm(container) {
     </div>
 
     <div class="form-group hidden" id="landCostGroup">
-      <label for="landCost">Land Cost:</label>
+      <label for="landCost">Land Cost(Rs.)</label>
       <input type="number" id="landCost" name="Land Cost">
     </div>
 
     <div class="form-group">
-      <label for="termLoan">Term Loan Availed?</label>
+      <label for="termLoan">Term Loan Availed(Rs.)</label>
       <select id="termLoan" name="Term Loan Availed" required>
         <option value="">Select</option>
         <option value="Yes">Yes</option>
@@ -66,14 +66,10 @@ export function renderForm(container) {
     </div>
 
     <div class="form-group hidden" id="termLoanAmountGroup">
-      <label for="termLoanAmount">Term Loan Amount:</label>
+      <label for="termLoanAmount">Term Loan Amount(Rs.)</label>
       <input type="number" id="termLoanAmount" name="Term Loan Amount">
     </div>
 
-    <div class="form-group">
-      <label for="netsgstpaidcashLedger">Net SGST Paid Cash Ledger:</label>
-      <input type="number" id="netsgstpaidcashLedger" name="Net SGST Paid Cash Ledger" required>
-    </div>
   `;
 
   // Handle Term Loan logic
