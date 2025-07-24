@@ -12,9 +12,9 @@ def generate_report_gujarat(user_data, result, zone):
     os.makedirs(output_dir, exist_ok=True)
 
     safe_name = user_data.get("Organisation Name", "user").replace(" ", "_")
-    #safe_name1 = user_data.get("State", "user").replace(" ", "_")
-    #safe_name2 = user_data.get("Enterprise Size", "user").replace(" ", "_")
-    filename = f"{safe_name}_Subsidy_Report.pdf"
+    safe_name1 = user_data.get("State", "user").replace(" ", "_")
+    safe_name2 = user_data.get("Enterprise Size", "user").replace(" ", "_")
+    filename = f"{safe_name}_{safe_name1}_{safe_name2}_Subsidy_Report.pdf"
     tex_filename = f"{safe_name}_Subsidy_Report.tex"
 
     tex_path = os.path.join(output_dir, tex_filename)
