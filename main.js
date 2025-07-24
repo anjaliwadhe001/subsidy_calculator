@@ -66,7 +66,21 @@ document.querySelector("#enterpriseSize").addEventListener("change", () => {
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
-  statusDiv.innerHTML = "Processing...";
+  
+  const progressContainer = document.querySelector("#progressContainer");
+  const progressBar = document.querySelector("#progressBar");
+
+  // Show the progress bar
+  progressContainer.style.display = "block";
+  progressBar.value = 0;
+
+  // Simulate progress incrementally
+  let progress = 0;
+  const interval = setInterval(() => {
+    progress = Math.min(progress + Math.random() * 10, 90); // random progress till 90%
+    progressBar.value = progress;
+  }, 300);
+
 
   const formData = new FormData(form);
   const data = {};
@@ -91,12 +105,23 @@ form.addEventListener("submit", async (e) => {
     if (result.report_path) {
       const filename = result.report_path.split("/").pop();
       const downloadUrl = `https://subsidy-calculator-1.onrender.com/download_pdf/${filename}`;
-      statusDiv.innerHTML = `Report generated. <a href="${downloadUrl}" target="_blank" download>Click to download PDF</a>`;
+      
+      clearInterval(interval);
+      progressBar.value = 100;
+
+      setTimeout(() => {
+        progressContainer.style.display = "none";
+        statusDiv.innerHTML = `Report generated. <a href="${downloadUrl}" target="_blank" download>Click to download PDF</a>`;
+      }, 500); // small delay to show 100% progress
+
     } else {
+      progressContainer.style.display = "none";
       statusDiv.innerHTML = `Error: ${result.error || "Unknown error"}`;
     }
   } catch (err) {
-    console.error(err);
-    statusDiv.innerHTML = "Something went wrong!";
+      clearInterval(interval);
+      progressContainer.style.display = "none";
+      console.error(err);
+      statusDiv.innerHTML = "Something went wrong while generating the report.";
   }
 });
