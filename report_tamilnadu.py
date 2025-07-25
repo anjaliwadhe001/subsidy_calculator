@@ -6,9 +6,12 @@ def generate_report_tamilnadu(user_data, result, zone):
     output_dir = "reports"
     os.makedirs(output_dir, exist_ok=True)
 
-    safe_name = user_data.get("Name", "user").replace(" ", "_")
-    filename = f"{safe_name}_Subsidy_Report.pdf"
-    tex_filename = f"{safe_name}_Subsidy_Report.tex"
+    # A safe filename based on user's information
+    safe_name = user_data.get("Organisation Name", "user").replace(" ", "_")
+    safe_name1 = user_data.get("State", "user").replace(" ", "_")
+    safe_name2 = user_data.get("Enterprise Size", "user").replace(" ", "_")
+    filename = f"{safe_name}_{safe_name1}_{safe_name2}_Subsidy_Report.pdf"
+    tex_filename = f"{safe_name}_{safe_name1}_{safe_name2}_Subsidy_Report.tex"
 
     tex_path = os.path.join(output_dir, tex_filename)
     pdf_path = os.path.join(output_dir, filename)
@@ -37,7 +40,7 @@ def generate_report_tamilnadu(user_data, result, zone):
 Offices in New Delhi \\& New York\\\\
 \\end{{center}}
 
-\\textbf{{Date: {pd.Timestamp.now().strftime('%Y-%m-%d')}}}
+\\textbf{{Date: {pd.Timestamp.now().strftime('%d-%m-%Y')}}}
 
 \\vspace{{1em}}
 \\begin{{itemize}}
@@ -62,14 +65,14 @@ Subsidy4India has identified various subsidies available for your organisation f
   \\item \\textbf{{(c) Interest Subsidy (applicable only when a term loan is availed for the project):}} Interest subsidy is available for 5 years for MSMEs and 6 years for large/mega projects.
 \\end{{itemize}}
 
-\\section*{{Costing Table}}
+\\section*{{Subsidy Snapshot}}
 \\begin{{longtable}}{{|p{{4cm}}|p{{4cm}}|p{{4cm}}|p{{4cm}}|}}
 \\hline
 \\textbf{{Subsidy head}} & \\textbf{{Total subsidy}} & \\textbf{{No. of years}} & \\textbf{{Assumption}} \\\\
 \\hline
 Capital Investment Subsidy & Rs. {result['capital_investment_subsidy']} & Disbursed over 7 years & One-time post production \\\\
 \\hline
-SGST reimbursement & Rs. {result['sgst_reimbursement']} & {sgst_eligibility_years} & Paid from cash ledger \\\\
+SGST reimbursement & Rs. {result['sgst_reimbursement']} & {sgst_eligibility_years} & Not Available for MSMEs across all zones and Large in Zone A  \\\\
 \\hline
 Stamp Duty & Rs. {result['stamp_duty_subsidy']} & One Time & Sub-Large projects are generally not eligible for this incentive \\\\
 \\hline

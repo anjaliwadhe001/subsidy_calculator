@@ -8,9 +8,12 @@ def generate_report_rajasthan(user_data, result, zone):
     output_dir = "reports"
     os.makedirs(output_dir, exist_ok=True)
 
-    safe_name = user_data.get("Name", "user").replace(" ", "_")
-    filename = f"{safe_name}_Subsidy_Report.pdf"
-    tex_filename = f"{safe_name}_Subsidy_Report.tex"
+    # A safe filename based on user's information
+    safe_name = user_data.get("Organisation Name", "user").replace(" ", "_")
+    safe_name1 = user_data.get("State", "user").replace(" ", "_")
+    safe_name2 = user_data.get("Enterprise Size", "user").replace(" ", "_")
+    filename = f"{safe_name}_{safe_name1}_{safe_name2}_Subsidy_Report.pdf"
+    tex_filename = f"{safe_name}_{safe_name1}_{safe_name2}_Subsidy_Report.tex"
 
     tex_path = os.path.join(output_dir, tex_filename)
     pdf_path = os.path.join(output_dir, filename)
@@ -31,7 +34,7 @@ def generate_report_rajasthan(user_data, result, zone):
 Offices in New Delhi \\& New York\\\\
 \\end{{center}}
 
-\\textbf{{Date: {pd.Timestamp.now().strftime('%Y-%m-%d')}}}
+\\textbf{{Date: {pd.Timestamp.now().strftime('%d-%m-%Y')}}}
 
 \\vspace{{1em}}
 \\begin{{itemize}}
@@ -51,15 +54,15 @@ Subsidy4India has identified various subsidies available for your organisation f
 
 \\section*{{Subsidy Breakdown}} 
 
-\\textbf{{1.Asset Creation Incentives (Choose One)}} \\\\
+\\textbf{{1.Asset Creation Incentives (You can choose only one of the following)}} \\\\
 \\begin{{itemize}}[leftmargin=1.5em]
     \\item \\textbf{{(a)Capital investment subsidy (One-time):}} According to MSME Policy 2024, Plastic alternative, Agricultural and Food processing industries will get subsidy 50\\% of their capital investment with the cap of Rs. 40 lakhs and Rs. 1.5 Crore respectively. 
     \\item \\textbf{{(b)Turnover-linked Incentives: }}Large, Mega and Ultra-mega industries are eligible to get Turnover-linked Incentives based on net sales turnover for 10 years.
     \\item \\textbf{{(c)SGST reimbursement: }}Kindly note that you can avail SGST reimbursement 75\\% of the SGST paid for 7 years and 10 years for MSME and Large, Mega, Ultra mega enterprises respectively.
-    \\item SGST reimbursement calculation (will be strictly available on SGST paid from cash ledger as per GSTR9 filed annually ) 
+    \\item \\textbf{{Stamp Duty Subsidy is not available for Rajasthan}}
 \\end{{itemize}}
 
-\\section*{{Costing Table}}
+\\section*{{Subsidy Snapshot}}
 
 \\begin{{longtable}}{{|p{{3cm}}|p{{4cm}}|p{{4cm}}|p{{4cm}}|}}
 \\hline
@@ -67,9 +70,9 @@ Subsidy4India has identified various subsidies available for your organisation f
 \\hline
 Capital Investment Subsidy & Rs. {result['capital_investment_subsidy']} & Disbursed over 10 years  & One-time post production \\\\
 \\hline
-Turnover-linked Incentives & Rs. {result['turnover_linked_incentive']} & 10 years & Disbursed annually \\\\
+Turnover-linked Incentives & Rs. {result['turnover_linked_incentive']} & Disbursed annually for 10 years & Available only fot Large, Mega and Ultra Mega Enterprises \\\\
 \\hline
-SGST reimbursement & Rs. {result['sgst_reimbursement']} & Disbursed equally over 7 years(10 years for MSMEs) & Paid from cash ledger \\\\
+SGST reimbursement & Rs. {result['sgst_reimbursement']} & Disbursed equally over 7 years(10 years for MSMEs) & \\\\
 \\hline
 \\end{{longtable}}
 

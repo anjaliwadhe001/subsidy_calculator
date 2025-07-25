@@ -12,9 +12,12 @@ def generate_report_maharashtra(user_data, result, zone):
     output_dir = "reports"
     os.makedirs(output_dir, exist_ok=True)
 
-    safe_name = user_data.get("Name", "user").replace(" ", "_")
-    filename = f"{safe_name}_Subsidy_Report.pdf"
-    tex_filename = f"{safe_name}_Subsidy_Report.tex"
+    # A safe filename based on user's information
+    safe_name = user_data.get("Organisation Name", "user").replace(" ", "_")
+    safe_name1 = user_data.get("State", "user").replace(" ", "_")
+    safe_name2 = user_data.get("Enterprise Size", "user").replace(" ", "_")
+    filename = f"{safe_name}_{safe_name1}_{safe_name2}_Subsidy_Report.pdf"
+    tex_filename = f"{safe_name}_{safe_name1}_{safe_name2}_Subsidy_Report.tex"
 
     tex_path = os.path.join(output_dir, tex_filename)
     pdf_path = os.path.join(output_dir, filename)
@@ -38,13 +41,14 @@ def generate_report_maharashtra(user_data, result, zone):
 Offices in New Delhi \\& New York\\\\
 \\end{{center}}
 
-\\textbf{{Date: {pd.Timestamp.now().strftime('%Y-%m-%d')}}}
+\\textbf{{Date: {pd.Timestamp.now().strftime('%d-%m-%Y')}}}
 
 \\vspace{{1em}}
-
-\\textbf{{Organization:}} {latex_escape(user_data['Organization Name'])} \\\\
-\\textbf{{Location:}} {latex_escape(user_data['Subdistrict'])}, {latex_escape(user_data['District'])}, {latex_escape(user_data['State'])} \\\\
-\\textbf{{Attn.:}} {latex_escape(user_data['Name'])}
+\\begin{{itemize}}
+    \\textbf{{Organization:}} {latex_escape(user_data['Organization Name'])} \\\\
+    \\textbf{{Location:}} {latex_escape(user_data['Subdistrict'])}, {latex_escape(user_data['District'])}, {latex_escape(user_data['State'])} \\\\
+    \\textbf{{Attn.:}} {latex_escape(user_data['Name'])}
+\\end{{itemize}}
 
 \\section*{{Overview}}
 Subsidy4India has identified various subsidies available for your organisation for your manufacturing unit in {latex_escape(user_data['District'])}, {latex_escape(user_data['Subdistrict'])} \\& {latex_escape(user_data['State'])} and sharing the evaluation report for your perusal which is located in Zone \\textbf{{{latex_escape(zone)}}}.
@@ -64,7 +68,7 @@ Subsidy4India has identified various subsidies available for your organisation f
 \\item \\textbf{{(c) Interest Subsidy (applicable only when a term loan is availed for the project):}} The Interest Subsidy under the Package Scheme of Incentives 2019 (PSI-2019) provides financial support by subsidizing interest paid on term loans for eligible industrial units with cap amount of electricity bills paid. \\\\
 \\end{{itemize}}
 
-\\section*{{Costing Table}}
+\\section*{{Subsidy Snapshot}}
 
 \\begin{{longtable}}{{|p{{4cm}}|p{{4cm}}|p{{4cm}}|p{{4cm}}|}}
 \\hline
@@ -74,7 +78,7 @@ Capital Investment Subsidy & Rs. {latex_escape(result['capital_investment_subsid
 \\hline
 Interest subsidy & Rs. {latex_escape(result['interest_subsidy'])} & 7 years & Post production \\\\
 \\hline
-Stamp Duty Waiver & Rs. {latex_escape(result['stamp_duty_waive_off'])} & & \\\\
+Stamp Duty Waiver & Rs. {latex_escape(result['stamp_duty_waive_off'])} & Waiver is not available for Zone A \\& B  & \\\\
 \\hline 
 SGST Reimbursement & Rs. {latex_escape(result['sgst_reimbursement'])} & Equally reimburse over 10 years & \\\\
 \\hline

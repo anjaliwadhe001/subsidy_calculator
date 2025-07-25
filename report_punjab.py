@@ -6,9 +6,12 @@ def generate_report_punjab(user_data, result):
     output_dir = "reports"
     os.makedirs(output_dir, exist_ok=True)
 
-    safe_name = user_data.get("Name", "user").replace(" ", "_")
-    filename = f"{safe_name}_Subsidy_Report.pdf"
-    tex_filename = f"{safe_name}_Subsidy_Report.tex"
+    # A safe filename based on user's information
+    safe_name = user_data.get("Organisation Name", "user").replace(" ", "_")
+    safe_name1 = user_data.get("State", "user").replace(" ", "_")
+    safe_name2 = user_data.get("Enterprise Size", "user").replace(" ", "_")
+    filename = f"{safe_name}_{safe_name1}_{safe_name2}_Subsidy_Report.pdf"
+    tex_filename = f"{safe_name}_{safe_name1}_{safe_name2}_Subsidy_Report.tex"
 
     tex_path = os.path.join(output_dir, tex_filename)
     pdf_path = os.path.join(output_dir, filename)
@@ -29,7 +32,7 @@ def generate_report_punjab(user_data, result):
 Offices in New Delhi \\& New York
 \\end{{center}}
 
-\\textbf{{Date: {pd.Timestamp.now().strftime('%Y-%m-%d')}}}
+\\textbf{{Date: {pd.Timestamp.now().strftime('%d-%m-%Y')}}}
 
 \\vspace{{1em}}
 
@@ -57,7 +60,7 @@ Subsidy4India has identified various subsidies available for your organisation f
   \\item \\textbf{{SGST reimbursement:}} Calculated on net SGST paid from cash ledger as per GSTR9.
 \\end{{itemize}}
 
-\\section*{{Costing Table}}
+\\section*{{Subsidy Snapshot}}
 \\begin{{longtable}}{{|p{{4cm}}|p{{4cm}}|p{{4cm}}|p{{4cm}}|}}
 \\hline
 \\textbf{{Subsidy head}} & \\textbf{{Total subsidy}} & \\textbf{{No. of years}} & \\textbf{{Assumption}} \\\\
@@ -93,13 +96,26 @@ SGST Reimbursement & Rs. {result['sgst_reimbursement']} & 5 years & Post product
 \\end{{itemize}}
 
 \\section*{{Estimated Disbursement Timeline}}
-Sanction within 90 days. Disbursal between 3–6 months depending on department funds. SGST reimbursements are annual post-GSTR9 filing.
+\\begin{{itemize}}[leftmargin=1.5em]
+  There will be a sanction provided for each of the subsidy 
+  application made which is sanctioned in upto 90 days and then disbursed as per funds 
+  availability with the Govt. Department and ranges from 3 months to 6 months from the 
+  date of sanction of the subsidy application.  \\\\
+  \\\\
+  In the case of SGST reimbursement, the company needs to file for the same every 
+  year post filing of annual GST return i.e. GSTR9 after which the SGST reimbursement 
+  is made ranging from 3 months to 6 months from the date of filing SGST 
+  reimbursement application. 
+\\end{{itemize}}
+
 
 \\section*{{How SCPL Helps}}
 
 \\begin{{itemize}}[leftmargin=1.5em]
-  \\item End-to-end support until subsidy is received.
-  \\item Regular follow-up and updates in case of delays.
+  \\item SCPL will work with the client to ensure that the last rupee of subsidy is received in your 
+    bank account and the contract is valid till we achieve the same.  
+  \\item If there is a delay in receipt of the subsidy amount due to operational reasons or budget 
+    allocation delay with the respective Govt. Department, SCPL will keep the client informed at every step
 \\end{{itemize}}
 
 \\section*{{Value Added Services}}
@@ -117,8 +133,14 @@ Sanction within 90 days. Disbursal between 3–6 months depending on department 
 
 \\section*{{Disclosure}}
 \\begin{{itemize}}[leftmargin=1.5em]
-  \\item Estimates based on client input; actuals may vary.
-  \\item Government decisions and document quality may impact eligibility or amount.
+  \\item SCPL (parent company of Subsidy4India) Team has calculated the subsidy based on 
+    details provided by the client and the same can vary depending on the capital investment 
+    made by the client. exact location of the land where the manufacturing unit is being 
+    setup, documents provided for registering the subsidy application and any follow up 
+    documents required by the Central or State Government authorities and will not be liable 
+    for any reduction in subsidy amount applicable to the client including the client being 
+    determined as non-eligible to avail the subsidy due to lack of documentation, change of 
+    policy and non-cooperation by client.
 \\end{{itemize}}
 
 \\end{{document}}

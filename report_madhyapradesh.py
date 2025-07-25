@@ -6,10 +6,12 @@ def generate_report_mp(user_data, result):
     output_dir = "reports"
     os.makedirs(output_dir, exist_ok=True)
 
-    # Construct a safe filename based on user's name
-    safe_name = user_data.get("Name", "user").replace(" ", "_")
-    filename = f"{safe_name}_Subsidy_Report.pdf"
-    tex_filename = f"{safe_name}_Subsidy_Report.tex"
+    # A safe filename based on user's information
+    safe_name = user_data.get("Organisation Name", "user").replace(" ", "_")
+    safe_name1 = user_data.get("State", "user").replace(" ", "_")
+    safe_name2 = user_data.get("Enterprise Size", "user").replace(" ", "_")
+    filename = f"{safe_name}_{safe_name1}_{safe_name2}_Subsidy_Report.pdf"
+    tex_filename = f"{safe_name}_{safe_name1}_{safe_name2}_Subsidy_Report.tex"
 
     # Full paths
     tex_path = os.path.join(output_dir, tex_filename)
@@ -35,9 +37,11 @@ Offices in New Delhi \\& New York\\\\
 
 \\vspace{{1em}}
 
-{user_data['Organization Name']} \\\\
-{user_data['District']}, {user_data['State']} \\\\
-\\textbf{{Attn.:}} {user_data['Name']}
+\\begin{{itemize}}
+    \\textbf{{Organization:}} {user_data['Organization Name']} \\\\
+    \\textbf{{Location:}} {(user_data['Subdistrict'])}, {(user_data['District'])}, {(user_data['State'])} \\\\
+    \\textbf{{Attn.:}} {user_data['Name']}
+\\end{{itemize}}
 
 \\vspace{{1em}}
 
@@ -63,7 +67,7 @@ Subsidy4India has identified various subsidies available for your organisation f
   \\item Special emphasis is given to women-led businesses, green-tech, and sectors like IT/ITeS, semiconductors, textiles, and EVs, which may have tailored rates or additional support.
 \\end{{itemize}}
 
-\\section*{{Costing Table}}
+\\section*{{Subsidy Snapshot}}
 \\begin{{longtable}}{{|p{{4cm}}|p{{4cm}}|p{{3cm}}|p{{4cm}}|}}
 \\hline
 \\textbf{{Subsidy head}} & \\textbf{{Total subsidy}} & \\textbf{{No. of years}} & \\textbf{{Assumption}} \\\\

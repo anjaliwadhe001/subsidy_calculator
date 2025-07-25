@@ -84,7 +84,7 @@ def calculate_subsidy(zone, enterprise_size, plant_machinery, building_civil_wor
 
     #TLI 
     if enterprise_size in ["Large", "Mega", "Ultra Mega"]:
-        turnover_linked_incentive =  (zone_info["TIL Rate(%)"][index]/100) * turn_over
+        turnover_linked_incentive =  (zone_info["TIL Rate(%)"][index]/100) * turn_over * 10
     else: 
         turnover_linked_incentive = 0
 

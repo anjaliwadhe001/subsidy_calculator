@@ -8,9 +8,12 @@ def generate_report_up(user_data, result, zone):
     output_dir = "reports"
     os.makedirs(output_dir, exist_ok=True)
 
-    safe_name = user_data.get("Name", "user").replace(" ", "_")
-    filename = f"{safe_name}_Subsidy_Report.pdf"
-    tex_filename = f"{safe_name}_Subsidy_Report.tex"
+    # A safe filename based on user's information
+    safe_name = user_data.get("Organisation Name", "user").replace(" ", "_")
+    safe_name1 = user_data.get("State", "user").replace(" ", "_")
+    safe_name2 = user_data.get("Enterprise Size", "user").replace(" ", "_")
+    filename = f"{safe_name}_{safe_name1}_{safe_name2}_Subsidy_Report.pdf"
+    tex_filename = f"{safe_name}_{safe_name1}_{safe_name2}_Subsidy_Report.tex"
 
     tex_path = os.path.join(output_dir, tex_filename)
     pdf_path = os.path.join(output_dir, filename)
@@ -35,7 +38,7 @@ def generate_report_up(user_data, result, zone):
 Offices in New Delhi \\& New York\\
 \\end{{center}}
 
-\\textbf{{Date: {pd.Timestamp.now().strftime('%Y-%m-%d')}}}
+\\textbf{{Date: {pd.Timestamp.now().strftime('%d-%m-%Y')}}}
 
 \\vspace{{1em}}
 \\begin{{itemize}}
@@ -70,7 +73,7 @@ Subsidy4India has identified various subsidies available for your organisation f
     However, SGST reimbursement is a feature of the Uttar Pradesh Industrial Investment & Employment Promotion Policy 2022, which applies to large, mega, super-mega, and ultra-mega industrial units, not MSMEs. Under this policy, eligible units can choose Net SGST Reimbursement as one of the mutually exclusive options for incentives, with reimbursement of 100\\% of the net SGST amount deposited in the State’s account, subject to policy conditions.
 \\end{{itemize}}
 
-\\section*{{Costing Table}}
+\\section*{{Subsidy Snapshot}}
 \\begin{{longtable}}{{|p{{4cm}}|p{{4cm}}|p{{4cm}}|p{{4cm}}|}}
 \\hline
 \\textbf{{Subsidy head}} & \\textbf{{Total subsidy}} & \\textbf{{No. of years}} & \\textbf{{Assumption}} \\

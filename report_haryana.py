@@ -7,9 +7,12 @@ def generate_report_haryana(user_data, result, zone, zone_info):
     output_dir = "reports"
     os.makedirs(output_dir, exist_ok=True)
 
-    safe_name = user_data.get("Name", "user").replace(" ", "_")
-    filename = f"{safe_name}_Subsidy_Report.pdf"
-    tex_filename = f"{safe_name}_Subsidy_Report.tex"
+    # A safe filename based on user's information
+    safe_name = user_data.get("Organisation Name", "user").replace(" ", "_")
+    safe_name1 = user_data.get("State", "user").replace(" ", "_")
+    safe_name2 = user_data.get("Enterprise Size", "user").replace(" ", "_")
+    filename = f"{safe_name}_{safe_name1}_{safe_name2}_Subsidy_Report.pdf"
+    tex_filename = f"{safe_name}_{safe_name1}_{safe_name2}_Subsidy_Report.tex"
 
     tex_path = os.path.join(output_dir, tex_filename)
     pdf_path = os.path.join(output_dir, filename)
@@ -19,6 +22,7 @@ def generate_report_haryana(user_data, result, zone, zone_info):
     sgst_extended_percent_report = zone_info["SGST Extended (%)"].item()
     sgst_initial_years_report = zone_info["SGST Initial Years"].item()
     sgst_extended_years_report = zone_info["SGST Extended Years"].item()
+    stamp_duty_rate = zone_info["Stamp Duty (%)"].item()
 
     tex_content = f"""
 \\documentclass[12pt]{{article}}
@@ -60,18 +64,18 @@ Subsidy4India has identified various subsidies available for your organisation f
 \\section*{{Subsidy Breakdown}}
 \\begin{{itemize}}[leftmargin=1.5em]
   \\item \\textbf{{Capital investment subsidy (One-time):}} You can avail the capital subsidy only once after your unit starts commercial production, by applying online within three months.
-  \\item \\textbf{{Stamp Duty exemption / reimbursement:}} Available during purchase of industrial land for the project. Reimbursement would be available only if the same entity bills the client when production starts.
-  \\item \\textbf{{Interest subsidy (if term loan availed):}} Zone A \\& B receive 5\\% interest subsidy for 5 years, Zone C \\& D receive 6\\% for 7 years.
+  \\item \\textbf{{Stamp Duty exemption / reimbursement:}} For your enterprise {{{stamp_duty_rate*100}}}\\% Stamp duty subsidy is available during purchase of industrial land for the project. Reimbursement would be available only if the same entity bills the client when production starts.
+  \\item \\textbf{{Interest subsidy (if term loan availed):}} Zone A \\& B receive 5\\% interest subsidy for 5 years, Zone C \\& D receive 6\\% for 7 years available for Micro and Small Enterprises only.
   \\item \\textbf{{SGST reimbursement:}} Available on SGST paid via cash ledger. Rate is {((sgst_initial_percent_report / 100) + (sgst_extended_percent_report / 100)) * 100:.2f}\\% of investment, totalling Rs. {result['sgst_reimbursement']} over {sgst_initial_years_report + sgst_extended_years_report} years.
   \\item \\textbf{{Estimated receipt timeline:}} Each subsidy is sanctioned within ~90 days, disbursed within 3–6 months depending on fund availability. SGST reimbursement is annual post-GSTR-9 filing.
 \\end{{itemize}}
 
-\\section*{{Costing Table}}
+\\section*{{Subsidy Snapshot}}
 \\begin{{longtable}}{{|p{{4cm}}|p{{4cm}}|p{{4cm}}|p{{4cm}}|}}
 \\hline
 \\textbf{{Subsidy head}} & \\textbf{{Total subsidy}} & \\textbf{{No. of years}} & \\textbf{{Assumption}} \\\\
 \\hline
-Capital Investment Subsidy & Rs. {result['capital_investment_subsidy']} & One-time & Post production \\\\
+Capital Investment Subsidy & Rs. {result['capital_investment_subsidy']} & One-time & Available for Micro and Small Enterprises only \\\\
 \\hline
 Stamp Duty reimbursement & Rs. {result['stamp_duty_exemption']} & One-time & Available during purchase \\\\
 \\hline
